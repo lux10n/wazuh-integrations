@@ -1,12 +1,6 @@
-<!--
-  -  Cloudflare rules
-  -  Created by Djamo Inc.
-  -  This program is a free software; you can redistribute it and/or modify it under the terms of GPLv2.
--->
+<!-- Cloudflare rules -->
 
-<!--
-ID: 101000 - 101999
--->
+<!-- ID: 101000 - 101999 -->
 
 <group name="cloudflare,">
 
