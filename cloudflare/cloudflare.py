@@ -1,16 +1,3 @@
-# VERSION 0 – AUDIT LOGS ONLY
-
-"""
-Purpose:
-- Fetch Cloudflare Audit Logs using the API key from process.env
-- Save each event to a .log file with minimal processing
-
-Output format:
-Cloudflare-Log: {json_event}
-
-This format makes it easy to tag logs in decoders and rules.
-"""
-
 import os, json, datetime
 
 try:
@@ -184,9 +171,6 @@ if __name__ == '__main__':
 
     current_date_before = date_upper_bound.strftime(rfc3339_format)
     current_date_after = date_lower_bound.strftime(rfc3339_format)
-
-    current_date_before = '2025-06-30T19:30:00Z'
-    current_date_after = '2025-06-29T19:30:00Z'
 
     print(f'[i] Range : {current_date_after} => {current_date_before}')
 
