@@ -1,0 +1,56 @@
+<!--
+  -  Cloudflare rules
+  -  Created by Djamo Inc.
+  -  This program is a free software; you can redistribute it and/or modify it under the terms of GPLv2.
+-->
+
+<!--
+ID: 101000 - 101999
+-->
+
+<group name="cloudflare,">
+
+    <!-- Cloudflare cronjob / wodle -->
+    <rule id="101000" level="0">
+        <decoded_as>json</decoded_as>
+        <field name="integration">cloudflare</field>
+        <description>Cloudflare default grouping rule.</description>
+    </rule>
+
+    <!-- Cloudflare Audit Logs : 101001 - 101500 -->
+
+    <!-- Default rule to save logs. -->
+    <rule id="101001" level="3">
+      <if_sid>101000</if_sid>
+      <field name="event.account.id" type="pcre2">[0-9a-fA-F]+</field>
+      <description>Cloudflare: Account-level audit event.</description>
+      <group>audit,pci_dss_10.6.1,</group>
+    </rule>
+    
+    <!-- Operation failed record in audit logs-->
+    <rule id="101002" level="16">
+      <if_sid>101001</if_sid>
+      <field name="event.action.result">failure</field>
+      <description>Cloudflare: Failed operation - $(event.action.description).</description>
+      <group>audit,pci_dss_10.6.1,</group>
+    </rule>
+
+    <!-- Cloudflare Firewall Events : 101501 - 101999 -->
+
+    <!-- Default firewall event -->
+    <rule id="101501" level="1">
+      <if_sid>101000</if_sid>
+      <field name="event.zoneTag" type="pcre2">[0-9a-fA-F]+</field>
+      <description>Cloudflare: Firewall event.</description>
+      <group>firewall,waf,pci_dss_10.6.1,</group>
+    </rule>
+
+    <!-- Request dropped. -->
+    <rule id="101502" level="6">
+      <if_sid>101501</if_sid>
+      <field name="event.firewallAction">block</field>
+      <description>Cloudflare: $(event.clientRequestHTTPMethodName) request dropped.</description>
+      <group>firewall,waf,attack,pci_dss_10.6.1,</group>
+    </rule>
+
+</group>
