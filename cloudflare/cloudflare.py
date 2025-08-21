@@ -5,8 +5,7 @@ try:
 except ImportError:
     exit('Module requests is not installed. Install using `pip install requests`')
 
-
-LOG_OUTFILE = './cloudflare.log'
+LOG_OUTFILE = os.path.join(os.path.dirname(__file__), "cloudflare.log")
 
 # Audit logs: searchable up to 30 days
 # Firewall events: searchable up to 15 days, but only one day (86400s) can be queried at a time
