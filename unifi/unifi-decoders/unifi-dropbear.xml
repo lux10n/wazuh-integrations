@@ -1,0 +1,48 @@
+<!-- Modify it at your will. -->
+<decoder name="custom-dropbear-ssh">
+  <prematch>dropbear</prematch>
+</decoder>
+<decoder name="custom-dropbear-ssh-header">
+  <parent>custom-dropbear-ssh</parent>
+  <regex>(\.+):\s(\w+)\s*(\d+)\s*(\d*:\d*:\d*)\s*(\.+)\s*(\S+):\s*dropbear\p(\d*)\p:</regex>
+  <order>log_source,month,day,hour,host_dir,device_id,pid</order>
+</decoder>
+<!-- =================================== Children ================================= -->
+<!-- Succeeded -->
+<decoder name="custom-dropbear-ssh-header">
+  <parent>custom-dropbear-ssh</parent>
+  <regex>\s*Password auth succeeded for '(\.+)' from (\S+):(\d*)</regex>
+  <order>succeed_user,succeed_from_ip,succeed_from_port</order>
+</decoder>
+<!-- Attempted -->
+<decoder name="custom-dropbear-ssh-header">
+  <parent>custom-dropbear-ssh</parent>
+  <regex>\s*Child connection from (\S+):(\d*)</regex>
+  <order>attempt_from_ip,attempt_from_port</order>
+</decoder>
+<!-- Failed -->
+<decoder name="custom-dropbear-ssh-header">
+  <parent>custom-dropbear-ssh</parent>
+  <regex>\s*Login attempt for(\.+)</regex>
+  <order>user_failed_nonexistent</order>
+</decoder>
+<decoder name="custom-dropbear-ssh-header">
+  <parent>custom-dropbear-ssh</parent>
+  <regex>\s*Bad password attempt for '(\.+)' from (\S+):(\d*)</regex>
+  <order>user_failed_recognized,failed_from_ip,failed_from_port</order>
+</decoder>
+<decoder name="custom-dropbear-ssh-header">
+  <parent>custom-dropbear-ssh</parent>
+  <regex>\s*Exit before auth from \p(\S+):(\d*)\p:(\.*)</regex>
+  <order>exited_from_ip,exited_from_ip,reasson</order>
+</decoder>
+<!-- LOG SAMPLES
+Success: 
+unifi_device: Oct  3 19:04:45 DeviceID 28704ee6d420,DeviceID-6.6.77+15402: dropbear[30369]: Password auth succeeded for 'admin_user' from 10.10.1.1:59080
+========================================================================================================================
+Attempt:
+unifi_device: Oct  7 10:00:53 DeviceID ac8ba9b5fa11,DeviceID-7.1.26+15869: dropbear[4081]: Child connection from 10.10.60.13:42789
+========================================================================================================================
+Failed:
+unifi_device: Oct  7 10:00:59 DeviceID ac8ba9b5fa11,DeviceID-7.1.26+15869: dropbear[4081]: Bad password attempt for 'admin_user' from 10.10.1.1:42789
+-->

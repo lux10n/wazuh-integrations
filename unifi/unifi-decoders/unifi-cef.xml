@@ -1,0 +1,106 @@
+<!-- Change it as your will -->
+<!-- Base decoder -->
+<decoder name="custom-unifi">
+  <prematch>UniFi-Network</prematch>
+</decoder>
+<!--
+EXAMPLES FOR TESTING:
+unifi_device: Oct  2 09:52:54 10.10.60.11 2025-10-02T09: 52:54.959Z UniFi-Network CEF:0|Ubiquiti|UniFi Network|9.2.87|0|Admin Accessed UniFi Network|1|msg=admin_user opened UniFi Network via the web. UNIFICategory=System UNIFIsubCategory=Admin Activity admin_ip=10.10.60.11
+unifi_device: Oct  2 09:52:54 10.10.60.11 2025-10-02T09: 52:54.959Z UniFi-Network CEF:0|Ubiquiti|UniFi Network|9.2.87|0|Admin Accessed UniFi Network|1|msg=admin_user opened UniFi Network via the web. UNIFICategory=System UNIFIsubCategory=Admin Activity admin_ip=10.10.60.11
+///////////////////////// NEW LOGS /////////////////////////
+unifi_device: Sep  7 15:45:55 _gateway 2025-09-07T15: 45:55.445Z UniFi-Network CEF:0|Ubiquiti|UniFi Network|9.2.87|253|WiFi Client Connected|1|msg=iPhone b9:68 connected to GUEST_WIFI on U6 Pro CS Digital. Connection Info: Ch. 36 (5 GHz, 40 MHz), -54 dBm. IP: 10.10.20.15 UNIFICategory=Client Activity UNIFIsubCategory=WiFi
+unifi_device: Sep  7 15:51:23 _gateway 2025-09-07T15: 51:23.760Z UniFi-Network CEF:0|Ubiquiti|UniFi Network|9.2.87|260|Wired Client Connected|1|msg=EAP115-1A d9:1a connected to STAFF-WIRE on USW Pro 24 PoE Port 19. Link Speed: FE. IP: 10.10.70.3 UNIFICategory=Client Activity UNIFIsubCategory=Wired
+-->
+<!-- =============================================== Format ones ===============================================  -->
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>(\.+):\s(\w+)\s*(\d+)\s*(\d*:\d*:\d*)\s*(\.+)\s*\S+:\s*\S+\s*UniFi-Network</regex>
+  <order>log_source,month,day,hour,host_dir</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>CEF:\d+\|(\.+)\|(\.+)\|(\S+)\|(\d+)\|(\.+)\|(\d*)\|\w+=(\.+).</regex>
+  <order>distributor_id,product_id,machine_id,event_id,action_performed,severity_level,message</order>
+</decoder>
+<!-- =============================================== Children ===============================================  -->
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>UNIFICategory=(\S+)</regex>
+  <order>UNIFICategory</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>UNIFIsubCategory=(\S+)</regex>
+  <order>UNIFIsubCategory</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>admin_ip=(\S+)</regex>
+  <order>admin_ip</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>this_controller=(\S+)</regex>
+  <order>this_controller</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>netconsole_enabled=(\S+)</regex>
+  <order>netconsole_enabled</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>debug=(\S+)</regex>
+  <order>debug</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>this_controller_encrypted_only=(\S+)</regex>
+  <order>this_controller_encrypted_only</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>port=(\S+)</regex>
+  <order>port</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>ip=(\S+)</regex>
+  <order>ip</order>
+</decoder>
+<!-- New fields::::> Connection Info: Ch. 36 (5 GHz, 40 MHz), -53 dBm. IP: 10.10.20.5 -->
+<!-- New Decoders -->
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>Connection Info:\sCh.\s(\S+)\s\p(\.+)\p(\.+)\p*\s(\.+)dBm.</regex>
+  <order>channel,GHz,MHz,dBm</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>IP:\s(\S+)</regex>
+  <order>IP</order>
+</decoder>
+<!-- New fields::::> Time Connected: 1h 21m. Data Used: 45.57 MB (up) / 88.44 MB (down). Last Connected To: U6 Pro CS Digital at -53 dBm -->
+<!-- New Decoders -->
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>Time Connected:\s(\.+).</regex>
+  <order>time_connected</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>Data Used:\s(\.+)\s\pup\p\s\.\s(\.+)\s\pdown\p.</regex>
+  <order>data_used_up,data_used_down</order>
+</decoder>
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>Last Connected To:\s(\.+)\sat\s(\.+)\sdBm</regex>
+  <order>last_connected_to,dBm</order>
+</decoder>
+<!-- New fields::::> Roaming Decision: -51 dBm to -35 dBm -->
+<!-- New Decoder -->
+<decoder name="custom-unifi-header">
+  <parent>custom-unifi</parent>
+  <regex>Roaming Decision:\s(\.+)\sto\s(\.+).</regex>
+  <order>roaming_dBm_from,roaming_dBm_to</order>
+</decoder>

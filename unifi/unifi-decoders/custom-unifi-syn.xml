@@ -1,0 +1,13 @@
+<!-- Modify it at your will. -->
+<decoder name="custom-syn-flood">
+  <prematch>SYN flooding</prematch>
+</decoder>
+<decoder name="custom-syn-flood-header">
+  <parent>custom-syn-flood</parent>
+  <regex>(\.+):\s*(\w+)\s*(\d+)\s*(\d+:\d+:\d+)\s*(\.+)\s*(\.+):\s*kernel:\s*\p(\d+\p*\d+)\p TCP: request_sock_TCP: (\.+)</regex>
+  <order>log_source,month,day,hour,host_dir,device_id,pid,message</order>
+</decoder>
+<!-- 
+unifi_device: Oct  2 22:55:21 U6ProCC 28704ee6d420,U6-Pro-6.6.77+15402: kernel: [1338179.817078] TCP: request_sock_TCP: Possible SYN flooding on port 8381. Sending cookies.  Check SNMP counters.
+unifi_device: Oct  2 22:55:21 U6ProCC 28704ee6d420,U6-Pro-6.6.77+15402: kernel: [1338179.817078] TCP: request_sock_TCP: Possible SYN flooding on port 8381. Sending cookies.  Check SNMP counters.
+-->

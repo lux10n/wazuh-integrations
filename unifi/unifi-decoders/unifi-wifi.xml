@@ -1,0 +1,19 @@
+<!-- Modify it at your will. -->
+<!--
+unifi_device: Sep  7 16:36:55 DeviceID 28704ee6d420,DeviceID-6.6.77+15402: hostapd[2757]: ath4: STA fe:0b:ff:09:8f:33 IEEE 802.11: authenticated
+unifi_device: Sep  7 17:02:51 DeviceID 28704ee6d420,DeviceID-6.6.77+15402: hostapd[2754]: ath1: STA fe:0b:ff:09:8f:33 IEEE 802.11: authenticated
+unifi_device: Sep  7 17:02:58 DeviceID 28704ee6d420,DeviceID-6.6.77+15402: hostapd[2757]: ath4: STA fe:0b:ff:09:8f:33 IEEE 802.11: authenticated
+-->
+<decoder name="custom-wifi-auth">
+  <prematch>hostapd</prematch>
+</decoder>
+<decoder name="custom-wifi-auth-header">
+  <parent>custom-wifi-auth</parent>
+  <regex>(\.+):\s(\w+)\s*(\d+)\s*(\d*:\d*:\d*)\s*(\.+)\s*(\S+):\s*hostapd\p(\d*)\p</regex>
+  <order>log_source,month,day,hour,host_dir,device_id,pid</order>
+</decoder>
+<decoder name="custom-wifi-auth-header">
+  <parent>custom-wifi-auth</parent>
+  <regex>hostapd[\d*]:\s(\S+):\s(\S+)\s(\.+)\s(\.+):\s*(\w*)</regex>
+  <order>net_interface,station,mac,protocol_standar,status</order>
+</decoder>

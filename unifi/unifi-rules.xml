@@ -1,0 +1,146 @@
+<!-- UNIFI ADMIN RULES -->
+<!-- Change it as your will -->
+<group name="unifi,syslog,">
+  <rule id="350000" level="3">
+    <decoded_as>custom-unifi</decoded_as>
+    <description>[UniFi]: Generic event detected</description>
+  </rule>
+  <rule id="350001" level="8">
+    <if_sid>350000</if_sid>
+    <match>Accessed</match>
+    <description>[$(distributor_id)][Admin authentication]-> message: $(message)</description>
+  </rule>
+  <rule id="350002" level="8">
+    <if_sid>350000</if_sid>
+    <field name="action_performed">Admin Created Setting|Admin Changed Setting</field>
+    <description>[$(distributor_id)][Configuration change]-> message: $(message)</description>
+  </rule>
+  
+  <!-- UNIFI ADMIN RULES -->
+  <!-- Change it as your will -->
+  <rule id="350003" level="5">
+    <if_sid>350000</if_sid>
+    <match>WiFi Client Connected</match>
+    <description>WiFi Client Connected -> [$(distributor_id)] -> message: $(message)</description>
+  </rule>
+  <rule id="350004" level="5">
+    <if_sid>350000</if_sid>
+    <match>WiFi Client Disconnected</match>
+    <description>WiFi Client Disconnected -> [$(distributor_id)] -> message: $(message)</description>
+  </rule>
+  <rule id="350005" level="5">
+    <if_sid>350000</if_sid>
+    <match>Wired Client Connected</match>
+    <description>Wired Client Connected -> [$(distributor_id)] -> message: $(message)</description>
+  </rule>
+  <rule id="350006" level="5">
+    <if_sid>350000</if_sid>
+    <match>Wired Client Disonnected</match>
+    <description>Wired Client Disonnected -> [$(distributor_id)] -> message: $(message)</description>
+  </rule>
+  <rule id="350007" level="5">
+    <if_sid>350000</if_sid>
+    <match>WiFi Client Roamed</match>
+    <description>WiFi Client Roamed -> [$(distributor_id)] -> message: $(message)</description>
+  </rule>
+  <rule id="350008" level="5">
+    <if_sid>350000</if_sid>
+    <match>Wired Client Roamed</match>
+    <description>Wired Client Roamed -> [$(distributor_id)] -> message: $(message)</description>
+  </rule>
+</group>
+
+<!-- UNIFI DROPBEAR SSH RULES -->
+<!-- Change it as your will -->
+<group name="unifi,dropbear,syslog,">
+  <rule id="351000" level="0">
+    <decoded_as>custom-dropbear-ssh</decoded_as>
+    <description>[Dropbear]: Generic event detected</description>
+  </rule>
+  <rule id="351001" level="5">
+    <if_sid>351000</if_sid>
+    <match>succeeded</match>
+    <description>[SSH access succeed]-> user: [$(succeed_user)] from [$(succeed_from_ip):$(succeed_from_port)]</description>
+  </rule>
+  <rule id="351002" level="8">
+    <if_sid>351000</if_sid>
+    <match>Child connection</match>
+    <description>[SSH connection attempted]-> from [$(attempt_from_ip):$(attempt_from_port)]</description>
+  </rule>
+  <rule id="351003" level="8">
+    <if_sid>351000</if_sid>
+    <match>nonexistent</match>
+    <description>[SSH connection attempted]-> from a nonexistent user</description>
+  </rule>
+  <rule id="351004" level="12" frequency="5" timeframe="20">
+    <if_matched_sid>351003</if_matched_sid>
+    <description>[SSH possible brute force attack with no-existing users]</description>
+  </rule>
+  <rule id="351005" level="8">
+    <if_sid>351000</if_sid>
+    <match>Bad password</match>
+    <description>[SSH connection failed]-> user: $(user_failed_recognized) from [$(failed_from_ip):$(failed_from_port)] -> BAD PASSWORD</description>
+  </rule>
+  <rule id="351006" level="12" frequency="10" timeframe="20">
+    <if_matched_sid>351005</if_matched_sid>
+    <description>[SSH possible brute force attack. Users failed the password several times in 20 seconds]</description>
+  </rule>
+  <rule id="351007" level="8">
+    <if_sid>351000</if_sid>
+    <match>before auth</match>
+    <description>[SSH connection failed]-> from [$(exited_from_ip):$(exited_from_port)] -> REASON: $(reasson)</description>
+  </rule>
+</group>
+
+
+<!-- UNIFI SYN FLOOD RULES -->
+<!-- Modify it at your will. -->
+<group name="unifi,syn-flood,">
+  <rule id="352000" level="0">
+    <decoded_as>custom-syn-flood</decoded_as>
+    <description>General syn flood event detected</description>
+  </rule>
+  <rule id="352001" level="12">
+    <if_sid>352000</if_sid>
+    <match>Possible SYN flooding</match>
+    <description>$(message)</description>
+  </rule>
+</group>
+
+<!-- UNIFI WIFI - AUTHENTICATION EVENTS  -->
+<!-- Modify it at your will. -->
+<group name="unifi,wifi_auth,">
+    <rule id="353000" level="0">
+        <decoded_as>custom-wifi-auth</decoded_as>
+        <description>General wifi auth event detected</description>
+    </rule>
+    <rule id="353001" level="5">
+        <if_sid>353000</if_sid>
+        <match>authenticated</match>
+        <description>The device $(mac) has been authenticated -> interface: $(net_interface) with pid: $(pid)</description>
+    </rule>
+    <rule id="353002" level="5">
+        <if_sid>353000</if_sid>
+        <match>disassociated</match>
+        <description>The device $(mac) has been disassociated -> interface: $(net_interface) with pid: $(pid)</description>
+    </rule>
+</group>
+
+<!-- UNIFI - AUTHENTICATION EVENTS  -->
+<!-- Modify it at your will. -->
+<group name="unifi,exploitation,syslog,">
+  <rule id="354000" level="3">
+    <decoded_as>custom-exploitation</decoded_as>
+    <description>[Exploitation]: Generic event detected</description>
+  </rule>
+  <rule id="354001" level="8">
+    <if_sid>354000</if_sid>
+    <match>Not found</match>
+    <description>[Exploitation]-> $(request_method) [Not found] with protocol: [$(protocol)] from [$(src_ip):$(src_port)] -> message: $(result_message)</description>
+  </rule>
+  <rule id="354002" level="8">
+    <if_sid>354000</if_sid>
+    <match>too large</match>
+    <description>[Exploitation]-> $(request_method) [Message too large] with protocol: [$(protocol)] from [$(src_ip):$(src_port)] -> message: $(result_message) </description>
+  </rule>
+</group>
