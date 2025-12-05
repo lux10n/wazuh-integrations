@@ -1,0 +1,47 @@
+<!-- Modify it at your will. -->
+<group name="syscheck,custom_fim,">
+
+  <!-- Changes on wazuh files -->
+  <rule id="100345" level="12">
+    <if_group>syscheck</if_group>
+    <field name="file">/var/ossec</field>
+    <description>Change detected on $(file)</description>
+  </rule>
+  <rule id="100346" level="12">
+    <if_sid>553</if_sid>
+    <field name="file" type="pcre2">(?i)ossec-agent</field>
+    <description>Change detected on $(file)</description>
+  </rule>
+  <rule id="100347" level="12">
+    <if_sid>550</if_sid>
+    <field name="file" type="pcre2">(?i)ossec-agent</field>
+    <description>Change detected on $(file)</description>
+  </rule>
+  <rule id="100348" level="12">
+    <if_sid>554</if_sid>
+    <field name="file" type="pcre2">(?i)ossec-agent</field>
+    <description>Change detected on $(file)</description>
+  </rule>
+
+  <!-- Changes on .conf files -->
+  <rule id="100350" level="12">
+    <if_group>syscheck</if_group>
+    <field name="file" type="pcre2">(?i)\.conf$</field>
+    <description>Change detected on $(file)</description>
+  </rule>
+
+  <!-- Exclusion: /etc/cups/subscriptions.conf -->
+  <rule id="100351" level="0">
+    <if_sid>100350</if_sid>
+    <field name="file">/etc/cups/subscriptions.conf</field>
+    <description>Ignore cups subscriptions.conf</description>
+  </rule>
+
+  <!-- Changes on custom integrations -->
+  <rule id="100360" level="12">
+    <if_group>syscheck</if_group>
+    <field name="file">/opt/wazuh-integrations</field>
+    <description>Change detected on $(file)</description>
+  </rule>
+
+</group>
