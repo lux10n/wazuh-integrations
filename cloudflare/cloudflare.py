@@ -24,7 +24,7 @@ def tag_and_save(json_event):
     try:
         transformed_event = {
             "integration" : "cloudflare",
-            "event" : json_event
+            "cloudflare" : json_event
         }
         with open(LOG_OUTFILE, 'a') as log_writer:
             log_writer.write(f'{json.dumps(transformed_event)}\n')
