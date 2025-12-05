@@ -3,3 +3,4 @@
 *.pcap
 *.gz
 .DS_Store
+monitors/*
