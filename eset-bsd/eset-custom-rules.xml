@@ -1,0 +1,197 @@
+<!-- Modify it at your will. -->
+<group name="eset,">
+
+  <rule id="102000" level="0">
+    <if_sid>42001</if_sid>
+    <description>ESET console logs.</description>
+  </rule>
+
+  <!-- Audit logs : 102001 - 102100 -->
+  
+  <rule id="102001" level="3">
+    <if_sid>102000</if_sid>
+    <field name="event_type">Audit_Event</field>
+    <description>ESET: $(severity) Audit event - $(action).</description>
+    <group>audit,</group>
+  </rule>
+
+  <rule id="102004" level="8">
+    <if_sid>102001</if_sid>
+    <match>Failed</match>
+    <description>ESET: Action failed - $(action).</description>
+    <group>audit,</group>
+  </rule>
+  <rule id="102005" level="12">
+    <if_sid>102001</if_sid>
+    <field name="severity">Critical</field>
+    <description>ESET: $(severity) audit event - $(action).</description>
+    <group>audit,</group>
+  </rule>
+  <rule id="102006" level="8">
+    <if_sid>102001</if_sid>
+    <field name="severity">Warning</field>
+    <description>ESET: $(severity) audit event - $(action).</description>
+    <group>audit,</group>
+  </rule>
+  <rule id="102007" level="5">
+    <if_sid>102001</if_sid>
+    <field name="severity">Information</field>
+    <description>ESET: $(severity) audit event - $(action).</description>
+    <group>audit,</group>
+  </rule>
+  <rule id="102008" level="5">
+    <if_sid>102007</if_sid>
+    <match>Login attempt</match>
+    <field name="result">Success</field>
+    <description>ESET: User $(user) logged in successfully.</description>
+    <group>audit,authentication_successful,</group>
+  </rule>
+  <rule id="102009" level="5">
+    <if_sid>102007</if_sid>
+    <match>Logout</match>
+    <field name="result">Success</field>
+    <description>ESET: User $(user) logged out successfully.</description>
+    <group>audit,</group>
+  </rule>
+  <rule id="102010" level="8">
+    <if_sid>102001</if_sid>
+    <match>Grant permission sets</match>
+    <description>ESET: Permission set granted by $(user).</description>
+    <group>audit,</group>
+  </rule>
+  <rule id="102011" level="8">
+    <if_sid>102001</if_sid>
+    <match>Revoke permission sets</match>
+    <description>ESET: Permission set revoked by $(user).</description>
+    <group>audit,</group>
+  </rule>
+
+
+  <!-- Web filter logs : 102101 - 120200 -->
+  <rule id="102101" level="3">
+    <if_sid>102000</if_sid>
+    <field name="event_type">FilteredWebsites_Event</field>
+    <description>ESET: Web filter event.</description>
+    <group>firewall,</group>
+  </rule>
+  <rule id="102102" level="12">
+    <if_sid>102101</if_sid>
+    <field name="severity">Critical</field>
+    <description>ESET: Website $(rule_id).</description>
+    <group>firewall,</group>
+  </rule>
+  <rule id="102103" level="8">
+    <if_sid>102101</if_sid>
+    <field name="severity">Warning</field>
+    <description>ESET: Website $(rule_id).</description>
+    <group>firewall,</group>
+  </rule>
+  <rule id="102104" level="5">
+    <if_sid>102101</if_sid>
+    <field name="severity">Information</field>
+    <description>ESET: Website $(rule_id).</description>
+    <group>firewall,</group>
+  </rule>
+
+
+
+
+  <!-- ESET detections : 102301 - 102400 -->
+  <rule id="102301" level="3">
+    <if_sid>102000</if_sid>
+    <field name="event_type">ESET Inspect Alert</field>
+    <description>ESET Inspect: Detection event.</description>
+    <group>antivirus,</group>
+  </rule>
+  <rule id="102302" level="12">
+    <if_sid>102301</if_sid>
+    <field name="severity">Critical</field>
+    <description>ESET Inspect: $(severity) detection - $(rulename).</description>
+    <group>antivirus,</group>
+  </rule>
+  <rule id="102303" level="8">
+    <if_sid>102301</if_sid>
+    <field name="severity">Warning</field>
+    <description>ESET Inspect: $(severity) detection - $(rulename).</description>
+    <group>antivirus,</group>
+  </rule>
+  <rule id="102304" level="5">
+    <if_sid>102301</if_sid>
+    <field name="severity">Information</field>
+    <description>ESET Inspect: $(severity) detection - $(rulename).</description>
+    <group>antivirus,</group>
+  </rule>
+
+
+
+
+  <!-- Firewall detections : 102401 - 102500 -->
+  <rule id="102401" level="3">
+    <if_sid>102000</if_sid>
+    <field name="event_type">FirewallAggregated_Event</field>
+    <description>ESET: Host firewall event.</description>
+    <group>firewall,</group>
+  </rule>
+  <rule id="102402" level="12">
+    <if_sid>102401</if_sid>
+    <field name="severity">Critical</field>
+    <description>ESET Inspect: Network detection - $(event).</description>
+    <group>firewall,</group>
+  </rule>
+  <rule id="102403" level="8">
+    <if_sid>102401</if_sid>
+    <field name="severity">Warning</field>
+    <description>ESET Inspect: Network detection - $(event).</description>
+    <group>firewall,</group>
+  </rule>
+  <rule id="102404" level="5">
+    <if_sid>102401</if_sid>
+    <field name="severity">Information</field>
+    <description>ESET Inspect: Network detection - $(event).</description>
+    <group>firewall,</group>
+  </rule>
+
+
+
+
+  <!-- XDR detections : 102501 - 102600 -->
+  <rule id="102501" level="3">
+    <if_sid>102000</if_sid>
+    <field name="event_type">Threat_Event</field>
+    <description>ESET XDR: Threat event.</description>
+    <group>threat_event,</group>
+  </rule>
+  <rule id="102502" level="12">
+    <if_sid>102501</if_sid>
+    <field name="severity">Critical</field>
+    <description>ESET XDR: $(threat_type) detected ($(threat_name)).</description>
+    <group>firewall,</group>
+  </rule>
+  <rule id="102503" level="8">
+    <if_sid>102501</if_sid>
+    <field name="severity">Warning</field>
+    <description>ESET XDR: $(threat_type) detected ($(threat_name)).</description>
+    <group>firewall,</group>
+  </rule>
+  <rule id="102504" level="5">
+    <if_sid>102501</if_sid>
+    <field name="severity">Information</field>
+    <description>ESET XDR: $(threat_type) detected ($(threat_name)).</description>
+    <group>firewall,</group>
+  </rule>
+
+
+  <!-- Incident-related events : 102601 - 102700 -->
+  <rule id="102601" level="3">
+    <if_sid>102000</if_sid>
+    <field name="event_type">Incident_Event</field>
+    <description>ESET: Incident event.</description>
+    <group>incident,</group>
+  </rule>
+  <!-- To add : POSTPONED TO THE FUTURE
+  [L/M/H] Incident created 
+  [L/M/H] Incident updated 
+  [Medium] Incident closed
+  -->
+
+</group>
