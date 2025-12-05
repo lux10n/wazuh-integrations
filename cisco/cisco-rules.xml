@@ -1,0 +1,81 @@
+<group name="cisco_ios,syslog,">
+  <!-- Base rule -->
+  <rule id="103000" level="3">
+    <decoded_as>custom_cisco_ios</decoded_as>
+    <description>Cisco IOS: $(custom_cisco_ios_category) event.</description>
+  </rule>
+
+  <!-- SEC Login Event, commented -->
+  <!-- 
+    <rule id="103100" level="5">
+      <if_sid>103000</if_sid>
+      <field name="custom_cisco_ios_category">SEC_LOGIN-5-LOGIN_SUCCESS</field>
+      <description>Cisco IOS: Login success by user $(custom_cisco_ios_user) from $(custom_cisco_ios_src_ip).</description>
+      <group>authentication_success,</group>
+    </rule>
+  -->
+
+  <!-- WEB login activity -->
+  <rule id="103101" level="5">
+    <if_sid>103000</if_sid>
+    <field name="custom_cisco_ios_category">SEC_LOGIN-5-WEBLOGIN_SUCCESS</field>
+    <description>Cisco IOS: Web login success by user $(custom_cisco_ios_user) from $(custom_cisco_ios_src_ip).</description>
+    <group>authentication_success,</group>
+  </rule>
+  <rule id="103102" level="5">
+    <if_sid>103000</if_sid>
+    <field name="custom_cisco_ios_category">WEBSERVER-5-LOGIN_PASSED</field>
+    <description>Cisco IOS: Webserver login passed by $(custom_cisco_ios_user) from $(custom_cisco_ios_src_ip) using cipher $(custom_cisco_ios_cipher).</description>
+    <group>authentication_success,</group>
+  </rule>
+  <rule id="103103" level="7">
+    <if_sid>103000</if_sid>
+    <field name="custom_cisco_ios_category">WEBSERVER-5-LOGIN_FAILED</field>
+    <description>Cisco IOS: Webserver login failed from $(custom_cisco_ios_src_ip).</description>
+    <group>authentication_failed,</group>
+  </rule>
+  <rule id="103199" level="12" frequency="10" timeframe="20">
+    <if_matched_sid>103103</if_matched_sid>
+    <description>Cisco IOS: Possible webserver brute force attack. Multiple failed authentications in 20 seconds.</description>
+  </rule>
+
+  <!-- SSH login activity -->
+  <rule id="103201" level="5">
+    <if_sid>103000</if_sid>
+    <field name="custom_cisco_ios_category">SSH-5-SSH2_SESSION</field>
+    <description>Cisco IOS: SSH2 session started from $(custom_cisco_ios_src_ip).</description>
+  </rule>
+  <rule id="103202" level="5">
+    <if_sid>103000</if_sid>
+    <field name="custom_cisco_ios_category">SSH-5-SSH2_CLOSE|SSH-5-SSH_CLOSE</field>
+    <description>Cisco IOS: SSH session closed from $(custom_cisco_ios_src_ip).</description>
+  </rule>
+  <rule id="103203" level="5">
+    <if_sid>103000</if_sid>
+    <field name="custom_cisco_ios_category">SSH-5-SSH2_USERAUTH</field>
+    <match>Succeeded</match>
+    <description>Cisco IOS: SSH2 user authentication succeeded from $(custom_cisco_ios_src_ip) by $(custom_cisco_ios_user).</description>
+    <group>authentication_success,</group>
+  </rule>
+  <rule id="103204" level="5">
+    <if_sid>103000</if_sid>
+    <field name="custom_cisco_ios_category">SSH-5-SSH2_USERAUTH</field>
+    <match>Failed</match>
+    <description>Cisco IOS: SSH2 user authentication failed from $(custom_cisco_ios_src_ip).</description>
+    <group>authentication_failed,</group>
+  </rule>
+  <rule id="103205" level="7">
+    <if_sid>103000</if_sid>
+    <field name="custom_cisco_ios_category">SSH-3-NO_MATCH</field>
+    <description>Cisco IOS SSH connection failed (negotiation error). Type: $(custom_cisco_ios_no_match_type), Client: $(custom_cisco_ios_no_match_client), Server: $(custom_cisco_ios_no_match_server)</description>
+  </rule>
+
+  <rule id="103298" level="12" frequency="10" timeframe="20">
+    <if_matched_sid>103202</if_matched_sid>
+    <description>Cisco IOS: Possible SSH server enumeration. Multiple SSH connexions closed.</description>
+  </rule>
+  <rule id="103299" level="12" frequency="10" timeframe="20">
+    <if_matched_sid>103204</if_matched_sid>
+    <description>Cisco IOS: Possible SSH brute force attack. Multiple failed authentications in 20 seconds.</description>
+  </rule>
+</group>

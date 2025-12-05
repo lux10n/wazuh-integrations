@@ -1,0 +1,73 @@
+<decoder name="custom_cisco_ios">
+  <prematch>BOM</prematch>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>BOM%(\.+):</regex>
+  <order>custom_cisco_ios_category</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>: (\.+) [|: User '\.*' (\.+) from|: (\.+) from</regex>
+  <order>custom_cisco_ios_action</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>Login Success [user: (\.*)]|by user '(\.*)'|for user '(\.*)'|User '(\.*)'</regex>
+  <order>custom_cisco_ios_user</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>[Source: (\d+.\d+.\d+.\d+)]|from host (\d+.\d+.\d+.\d+)|from (\d+.\d+.\d+.\d+)</regex>
+  <order>custom_cisco_ios_src_ip</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>[localport: (\d+)]</regex>
+  <order>custom_cisco_ios_localport</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>at (\d+:\d+:\d+) (\w+) (\w+) (\w+) (\d+) (\d+)</regex>
+  <order>custom_cisco_ios_time, custom_cisco_ios_time_zone, custom_cisco_ios_day, custom_cisco_ios_month, custom_cisco_ios_date_day, custom_cisco_ios_date_year</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>: Switch \d+ Login (\w+) from</regex>
+  <order>custom_cisco_ios_login_type</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>using crypto cipher '(\.*)'</regex>
+  <order>custom_cisco_ios_cipher</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>' (\w+)$</regex>
+  <order>custom_cisco_ios_status</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>hmac '(\.*)'</regex>
+  <order>custom_cisco_ios_hmac</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>NO_MATCH: No matching (\w+) found: c</regex>
+  <order>custom_cisco_ios_no_match_type</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>client \${(\.+) server|client (\.+) server</regex>
+  <order>custom_cisco_ios_no_match_client</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>server (\.+),(\.+),(\.+),\.+,\.+,\.+,(\.+),\.+$</regex>
+  <order>custom_cisco_ios_no_match_server, custom_cisco_ios_no_match_aes128, custom_cisco_ios_no_match_aes256, custom_cisco_ios_no_match_aes192</order>
+</decoder>
+<decoder name="custom_cisco_ios_child">
+  <parent>custom_cisco_ios</parent>
+  <regex>server (hmac-sha2-256-etm@openssh.com),(hmac-sha2-512-etm@openssh.com)$</regex>
+  <order>custom_cisco_ios_no_match_hmac_sha256, custom_cisco_ios_no_match_hmac_sha512</order>
+</decoder>
