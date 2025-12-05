@@ -2,7 +2,7 @@
   {
     "id": "github-events",
     "execute-command": "log_event.sh",
-    "command-working-directory": "/Users/miyouu/TLP-RED/wazuh-integrations/github",
+    "command-working-directory": "/path/to/wazuh-integrations/github",
     "response-headers": [
       {
         "name": "Access-Control-Allow-Origin",
