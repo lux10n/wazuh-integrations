@@ -1,0 +1,8 @@
+<!-- Modify it at your will. -->
+<!-- “Application Passed” events silenced -->
+<group name="fortigate,firewall">
+  <rule id="234567" level="0">
+      <if_sid>81633</if_sid>
+      <description>SILENCING Fortigate Base Rule 81633, no Alert will be triggered</description>
+  </rule>
+</group>
