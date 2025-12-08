@@ -487,7 +487,7 @@ ID: 104000 - 104999
   </rule>
   <!-- pull_request.closed // github.pull_request.merged: true -->
   <rule id="104060" level="8">
-    <if_sid>104056</if_sid>
+    <if_sid>104059</if_sid>
     <field name="github.pull_request.merged">true</field>
     <description>GitHub: PR #$(github.number) merged into $(github.pull_request.base.label) by $(github.pull_request.merged_by.login).</description>
     <options>no_full_log</options>
