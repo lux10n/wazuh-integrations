@@ -13,22 +13,26 @@ if ! command -v jq >/dev/null 2>&1; then
 fi
 
 CLEAN_PAYLOAD="$(printf '%s' "$PAYLOAD" | jq -c '.')"
-
 TMP_FILE="$(mktemp)"
 
 echo "$CLEAN_PAYLOAD" \
   | jq -c --arg event "$EVENT_TYPE" '
-      def final_action:
-        if (.action | type == "string") then
-          ($event + "." + .action)
-        else
-          $event
-        end;
-      if type == "object" then
-        {"integration":"github","github": (. + {"action": final_action})}
-      else
-        {"integration":"github","github": {"raw": ., "action": $event}}
-      end
+      . as $raw
+      | def final_action:
+          if ($raw.action|type=="string")
+            then $event + "." + ($raw.action)
+            else $event
+          end;
+      {
+        integration: "github",
+        github:
+          ($raw
+            + { action: final_action }
+            + { actor: ($raw.sender.login // null) }
+            + { repo: ($raw.repository.full_name // null) }
+            + { org: ($raw.organization.login // null) }
+          )
+      }
     ' > "$TMP_FILE"
 
 cat "$TMP_FILE" >> "$LOG_OUTPUT_FILE"
