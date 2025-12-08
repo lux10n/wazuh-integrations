@@ -19,18 +19,20 @@ A local webhook receiver using [`adnanh/webhook`](https://github.com/adnanh/webh
 
 1. **Create a webhook on Github's Organization Settings dashboard**
 
-In the Event selector, choose which events you wish to receive.
+In the Event selector, choose which events you wish to receive, and set a secret for the webhook.
 
 2. **Set up webhook receiver**
 
 This setup assumes you already set up your network forwarding and any other configuration that should ensure webhook delivery.
 
-Edit `hooks.json` to match your working directory : 
+Edit `hooks.json` to match your working directory and your webhook secret : 
 
 ```json
 {
     ...
     "command-working-directory": "/path/to/wazuh-integrations/github",
+    ...
+    "secret": "your-secret-here",
     ...
 }
 ```
@@ -106,3 +108,20 @@ As root :
 ```
 
 3. Restart Wazuh agent, and do some actions on GitHub.
+
+
+## Security considerations
+
+### HTTPS Configuration
+
+Start webhook with the following arguments : 
+
+### IP Whitelist ranges
+
+GitHub's IP ranges for webhooks are, as of December 2025 :
+- `192.30.252.0/22`
+- `185.199.108.0/22`
+- `140.82.112.0/20`
+- `143.55.64.0/20`
+- `2a0a:a440::/29`
+- `2606:50c0::/3`
