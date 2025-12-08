@@ -18,6 +18,20 @@
         "source": "entire-payload"
       }
     ],
-    "include-command-output-in-response": true
+    "include-command-output-in-response": true,
+    "trigger-rule": {
+      "and": [
+        {
+          "match": {
+            "type": "payload-hmac-sha1",
+            "secret": "your-secret-here",
+            "parameter": {
+              "source": "header",
+              "name": "X-Hub-Signature"
+            }
+          }
+        }
+      ]
+    }
   }
 ]
