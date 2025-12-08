@@ -45,18 +45,21 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^branch_protection_configuration.\.*</field>
     <description>GitHub: Branch protection configuration change.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- branch_protection_configuration.disabled -->
   <rule id="104002" level="12">
     <if_sid>104001</if_sid>
     <field name="github.action">branch_protection_configuration.disabled</field>
-    <description>GitHub: Branch protection disabled in $(github.repository.full_name).</description>
+    <description>GitHub: Branch protection disabled in $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- branch_protection_configuration.enabled -->
   <rule id="104003" level="12">
     <if_sid>104001</if_sid>
     <field name="github.action">branch_protection_configuration.enabled</field>
-    <description>GitHub: Branch protection enabled in $(github.repository.full_name).</description>
+    <description>GitHub: Branch protection enabled in $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -65,24 +68,28 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^branch_protection_rule.\.*</field>
     <description>GitHub: Branch protection rule change.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- branch_protection_rule.created -->
   <rule id="104005" level="12">
     <if_sid>104004</if_sid>
     <field name="github.action">branch_protection_rule.created</field>
-    <description>GitHub: Branch protection rule created in $(github.repository.full_name) by $(github.sender.login).</description>
+    <description>GitHub: Branch protection rule created in $(github.repository.name) by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- branch_protection_rule.edited -->
   <rule id="104006" level="12">
     <if_sid>104004</if_sid>
     <field name="github.action">branch_protection_rule.edited</field>
-    <description>GitHub: Branch protection rule edited in $(github.repository.full_name) by $(github.sender.login).</description>
+    <description>GitHub: Branch protection rule edited in $(github.repository.name) by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- branch_protection_rule.deleted -->
   <rule id="104007" level="12">
     <if_sid>104004</if_sid>
     <field name="github.action">branch_protection_rule.deleted</field>
-    <description>GitHub: Branch protection rule deleted in $(github.repository.full_name) by $(github.sender.login).</description>
+    <description>GitHub: Branch protection rule deleted in $(github.repository.name) by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -91,30 +98,35 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^check_run.\.*</field>
     <description>GitHub: Check run event.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- check_run.created-->
   <rule id="104009" level="8">
     <if_sid>104008</if_sid>
     <field name="github.action">check_run.created</field>
-    <description>GitHub: Check run $(github.check_run.name) created on $(github.repository.full_name).</description>
+    <description>GitHub: Check run $(github.check_run.name) created on $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- check_run.completed-->
   <rule id="104010" level="8">
     <if_sid>104008</if_sid>
     <field name="github.action">check_run.completed</field>
-    <description>GitHub: Check run $(github.check_run.name) completed on $(github.repository.full_name).</description>
+    <description>GitHub: Check run $(github.check_run.name) completed on $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- check_run.completed // check_run.conclusion : success -->
   <rule id="104011" level="8">
     <if_sid>104010</if_sid>
     <field name="github.check_run.conclusion">success</field>
-    <description>GitHub: Check run $(github.check_run.name) succeeded on $(github.repository.full_name).</description>
+    <description>GitHub: Check run $(github.check_run.name) succeeded on $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- check_run.completed // check_run.conclusion : failure -->
   <rule id="104012" level="8">
     <if_sid>104010</if_sid>
     <field name="github.check_run.conclusion">failure</field>
-    <description>GitHub: Check run $(github.check_run.name) failed on $(github.repository.full_name).</description>
+    <description>GitHub: Check run $(github.check_run.name) failed on $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -123,30 +135,35 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^check_suite.\.*</field>
     <description>GitHub: Check suite event.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- check_suite.completed-->
   <rule id="104014" level="8">
     <if_sid>104013</if_sid>
     <field name="github.action">check_suite.completed</field>
-    <description>GitHub: Check suite $(github.check_suite.name) completed on $(github.repository.full_name).</description>
+    <description>GitHub: Check suite $(github.check_suite.name) completed on $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- check_suite.completed // check_suite.conclusion : success -->
   <rule id="104015" level="8">
     <if_sid>104014</if_sid>
     <field name="github.check_suite.conclusion">success</field>
-    <description>GitHub: Check suite $(github.check_suite.name) succeeded on $(github.repository.full_name).</description>
+    <description>GitHub: Check suite $(github.check_suite.name) succeeded on $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- check_suite.completed // check_suite.conclusion : failure -->
   <rule id="104016" level="8">
     <if_sid>104014</if_sid>
     <field name="github.check_suite.conclusion">failure</field>
-    <description>GitHub: Check suite $(github.check_suite.name) failed on $(github.repository.full_name).</description>
+    <description>GitHub: Check suite $(github.check_suite.name) failed on $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- check_suite.completed // check_suite.conclusion : skipped -->
   <rule id="104017" level="8">
     <if_sid>104014</if_sid>
     <field name="github.check_suite.conclusion">skipped</field>
-    <description>GitHub: Check suite $(github.check_suite.name) skipped on $(github.repository.full_name).</description>
+    <description>GitHub: Check suite $(github.check_suite.name) skipped on $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -155,42 +172,49 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^code_scanning_alert.\.*</field>
     <description>GitHub: Code scanning alert.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- code_scanning_alert.created -->
   <rule id="104019" level="8">
     <if_sid>104018</if_sid>
     <field name="github.action">code_scanning_alert.created</field>
-    <description>GitHub: Code scanning alert created in $(github.repository.full_name).</description>
+    <description>GitHub: Code scanning alert created in $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- code_scanning_alert.appeared in branch -->
   <rule id="104020" level="8">
     <if_sid>104018</if_sid>
     <field name="github.action">code_scanning_alert.appeared in branch</field>
-    <description>GitHub: Code scanning alert appeared on another branch of $(github.repository.full_name).</description>
+    <description>GitHub: Code scanning alert appeared on another branch of $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- code_scanning_alert.fixed -->
   <rule id="104021" level="8">
     <if_sid>104018</if_sid>
     <field name="github.action">code_scanning_alert.fixed</field>
-    <description>GitHub: Code scanning alert fixed in $(github.repository.full_name).</description>
+    <description>GitHub: Code scanning alert fixed in $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- code_scanning_alert.reopened -->
   <rule id="104022" level="8">
     <if_sid>104018</if_sid>
     <field name="github.action">code_scanning_alert.reopened</field>
-    <description>GitHub: Code scanning alert reopened in $(github.repository.full_name).</description>
+    <description>GitHub: Code scanning alert reopened in $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- code_scanning_alert.closed_by_user -->
   <rule id="104023" level="8">
     <if_sid>104018</if_sid>
     <field name="github.action">code_scanning_alert.closed_by_user</field>
-    <description>GitHub: Code scanning alert in $(github.repository.full_name) closed by $(github.sender.login).</description>
+    <description>GitHub: Code scanning alert in $(github.repository.name) closed by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- code_scanning_alert.reopened_by_user -->
   <rule id="104024" level="8">
     <if_sid>104018</if_sid>
     <field name="github.action">code_scanning_alert.reopened_by_user</field>
-    <description>GitHub: Code scanning alert in $(github.repository.full_name) reopened by $(github.sender.login).</description>
+    <description>GitHub: Code scanning alert in $(github.repository.name) reopened by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ###################### TO BE FIXED ######################### -->
@@ -199,19 +223,22 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">create</field>
     <description>GitHub: Branch or tag created.</description>
-  </rule> -->
+    <options>no_full_log</options>
+    </rule> -->
   <!-- github.ref_type: branch -->
   <!-- <rule id="104026" level="8">
     <if_sid>104025</if_sid>
     <field name="github.ref_type">branch</field>
-    <description>GitHub: Branch $(github.ref) created in $(github.repository.full_name).</description>
-  </rule> -->
+    <description>GitHub: Branch $(github.ref) created in $(github.repository.name).</description>
+    <options>no_full_log</options>
+    </rule> -->
   <!-- github.ref_type: tag -->
   <!-- <rule id="104027" level="8">
     <if_sid>104025</if_sid>
     <field name="github.ref_type">tag</field>
-    <description>GitHub: Tag $(github.ref) created in $(github.repository.full_name).</description>
-  </rule> -->
+    <description>GitHub: Tag $(github.ref) created in $(github.repository.name).</description>
+    <options>no_full_log</options>
+    </rule> -->
 
   <!-- ###################### TO BE FIXED ######################### -->
   <!-- delete -->
@@ -219,26 +246,30 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">delete</field>
     <description>GitHub: Branch or tag deleted.</description>
-  </rule> -->
+    <options>no_full_log</options>
+    </rule> -->
   <!-- github.ref_type: branch -->
   <!-- <rule id="104029" level="8">
     <if_sid>104028</if_sid>
     <field name="github.ref_type">branch</field>
-    <description>GitHub: Branch $(github.ref) deleted in $(github.repository.full_name).</description>
-  </rule> -->
+    <description>GitHub: Branch $(github.ref) deleted in $(github.repository.name).</description>
+    <options>no_full_log</options>
+    </rule> -->
   <!-- github.ref_type: tag -->
   <!-- <rule id="104030" level="8">
     <if_sid>104028</if_sid>
     <field name="github.ref_type">tag</field>
-    <description>GitHub: Tag $(github.ref) deleted in $(github.repository.full_name).</description>
-  </rule> -->
+    <description>GitHub: Tag $(github.ref) deleted in $(github.repository.name).</description>
+    <options>no_full_log</options>
+    </rule> -->
 
   <!-- ############################################################ -->
   <!-- deployment.create -->
   <rule id="104031" level="3">
     <if_sid>104000</if_sid>
     <field name="github.action">deployment.create</field>
-    <description>GitHub: Deployment created in $(github.repository.full_name) by $(github.deployment.creator.login).</description>
+    <description>GitHub: Deployment created in $(github.repository.name) by $(github.deployment.creator.login).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- deployment_protection_rule.requested -->
@@ -246,6 +277,7 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">deployment_protection_rule.requested</field>
     <description>GitHub: Deployment protection rule requested for $(github.environment).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -254,24 +286,28 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^deployment_review.\.*</field>
     <description>GitHub: Deployment review event.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- deployment_review.requested -->
   <rule id="104034" level="8">
     <if_sid>104033</if_sid>
     <field name="github.action">deployment_review.requested</field>
-    <description>GitHub: Deployment review requested in $(github.repository.full_name) by $(github.requestor.login).</description>
+    <description>GitHub: Deployment review requested in $(github.repository.name) by $(github.requestor.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- deployment_review.approved -->
   <rule id="104035" level="8">
     <if_sid>104033</if_sid>
     <field name="github.action">deployment_review.approved</field>
-    <description>GitHub: Deployment review approved in $(github.repository.full_name) by $(github.approver.login).</description>
+    <description>GitHub: Deployment review approved in $(github.repository.name) by $(github.approver.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- deployment_review.rejected in branch -->
   <rule id="104036" level="8">
     <if_sid>104033</if_sid>
     <field name="github.action">deployment_review.rejected in branch</field>
-    <description>GitHub: Deployment review rejected in $(github.repository.full_name) by $(github.approver.login).</description>
+    <description>GitHub: Deployment review rejected in $(github.repository.name) by $(github.approver.login).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -280,24 +316,28 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">deployment_status.created</field>
     <description>GitHub: Deployment status update.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- github.deployment_status.state : success -->
   <rule id="104038" level="8">
     <if_sid>104037</if_sid>
     <field name="github.deployment_status.state">success</field>
-    <description>GitHub: Deployment succeeded for $(github.repository.full_name).</description>
+    <description>GitHub: Deployment succeeded for $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- github.deployment_status.state : failure -->
   <rule id="104039" level="11">
     <if_sid>104037</if_sid>
     <field name="github.deployment_status.state">failure</field>
-    <description>GitHub: Deployment failed for $(github.repository.full_name).</description>
+    <description>GitHub: Deployment failed for $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- github.deployment_status.state : error -->
   <rule id="104040" level="11">
     <if_sid>104037</if_sid>
     <field name="github.deployment_status.state">error</field>
-    <description>GitHub: Deployment error for $(github.repository.full_name).</description>
+    <description>GitHub: Deployment error for $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -305,7 +345,8 @@ ID: 104000 - 104999
   <rule id="104041" level="8">
     <if_sid>104000</if_sid>
     <field name="github.action">fork</field>
-    <description>GitHub: Repository $(github.forkee.full_name) forked.</description>
+    <description>GitHub: Repository $(github.forkee.name) forked.</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -314,6 +355,7 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">github_app_authorization.revoked</field>
     <description>GitHub: User revoked authorization from an app.</description>
+    <options>no_full_log</options>
   </rule>
 
 
@@ -323,24 +365,28 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^member.\.*</field>
     <description>GitHub: Repository member event.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- member.added -->
   <rule id="104044" level="8">
     <if_sid>104043</if_sid>
     <field name="github.action">member.added</field>
-    <description>GitHub: User $(github.member.login) added to repository $(github.repository.full_name).</description>
+    <description>GitHub: User $(github.member.login) added to repository $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- member.edited -->
   <rule id="104045" level="8">
     <if_sid>104043</if_sid>
     <field name="github.action">member.edited</field>
-    <description>GitHub: Permissions changed for user $(github.member.login) in repository $(github.repository.full_name).</description>
+    <description>GitHub: Permissions changed for user $(github.member.login) in repository $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- member.removed -->
   <rule id="104046" level="8">
     <if_sid>104043</if_sid>
     <field name="github.action">member.removed</field>
-    <description>GitHub: User $(github.member.login) removed from repository $(github.repository.full_name).</description>
+    <description>GitHub: User $(github.member.login) removed from repository $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -349,18 +395,21 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^membership.\.*</field>
     <description>GitHub: Team membership event.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- membership.added -->
   <rule id="104048" level="8">
     <if_sid>104047</if_sid>
     <field name="github.action">membership.added</field>
     <description>GitHub: User $(github.member.login) added to team $(github.team.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- membership.removed -->
   <rule id="104049" level="8">
     <if_sid>104047</if_sid>
     <field name="github.action">membership.removed</field>
     <description>GitHub: User $(github.member.login) removed from team $(github.team.name).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -369,36 +418,42 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^organization.\.*</field>
     <description>GitHub: Organization activity event.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- organization.renamed -->
   <rule id="104051" level="8">
     <if_sid>104050</if_sid>
     <field name="github.action">organization.renamed</field>
     <description>GitHub: Organization $(github.changes.login.from) renamed to $(github.organization.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- organization.deleted -->
   <rule id="104052" level="16">
     <if_sid>104050</if_sid>
     <field name="github.action">organization.deleted</field>
     <description>GitHub: Organization $(github.organization.login) deleted.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- organization.member_invited -->
   <rule id="104053" level="8">
     <if_sid>104050</if_sid>
     <field name="github.action">organization.member_invited</field>
     <description>GitHub: User $(github.invitation.email) invited to $(github.organization.login) by $(github.invitation.inviter.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- organization.member_added -->
   <rule id="104054" level="8">
     <if_sid>104050</if_sid>
     <field name="github.action">organization.member_added</field>
     <description>GitHub: User $(github.membership.user.login) joined $(github.organization.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- organization.member_removed -->
   <rule id="104055" level="8">
     <if_sid>104050</if_sid>
     <field name="github.action">organization.member_removed</field>
     <description>GitHub: User $(github.membership.user.login) removed from $(github.organization.login).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -407,48 +462,56 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^pull_request.\.*</field>
     <description>GitHub: Pull request event.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- pull_request.opened -->
   <rule id="104057" level="8">
     <if_sid>104056</if_sid>
     <field name="github.action">pull_request.opened</field>
-    <description>GitHub: PR #$(github.number) - $(github.pull_request.title) opened in $(github.repository.full_name) by $(github.pull_request.user.login).</description>
+    <description>GitHub: PR #$(github.number) - $(github.pull_request.title) opened in $(github.repository.name) by $(github.pull_request.user.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- pull_request.edited -->
   <rule id="104058" level="8">
     <if_sid>104056</if_sid>
     <field name="github.action">pull_request.edited</field>
-    <description>GitHub: PR #$(github.number) edited in $(github.repository.full_name).</description>
+    <description>GitHub: PR #$(github.number) edited in $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- pull_request.closed -->
   <rule id="104059" level="8">
     <if_sid>104056</if_sid>
     <field name="github.action">pull_request.closed</field>
-    <description>GitHub: PR #$(github.number) closed in $(github.repository.full_name).</description>
+    <description>GitHub: PR #$(github.number) closed in $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- pull_request.closed // github.pull_request.merged: true -->
   <rule id="104060" level="8">
     <if_sid>104056</if_sid>
     <field name="github.pull_request.merged">true</field>
     <description>GitHub: PR #$(github.number) merged into $(github.pull_request.base.label) by $(github.pull_request.merged_by.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- pull_request.reopened -->
   <rule id="104061" level="8">
     <if_sid>104056</if_sid>
     <field name="github.action">pull_request.reopened</field>
-    <description>GitHub: PR #$(github.number) reopened in $(github.repository.full_name).</description>
+    <description>GitHub: PR #$(github.number) reopened in $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- pull_request.locked -->
   <rule id="104062" level="8">
     <if_sid>104056</if_sid>
     <field name="github.action">pull_request.locked</field>
-    <description>GitHub: PR #$(github.number) locked in $(github.repository.full_name).</description>
+    <description>GitHub: PR #$(github.number) locked in $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- pull_request.unlocked -->
   <rule id="104063" level="8">
     <if_sid>104056</if_sid>
     <field name="github.action">pull_request.unlocked</field>
-    <description>GitHub: PR #$(github.pull_request.id) unlocked in $(github.repository.full_name).</description>
+    <description>GitHub: PR #$(github.pull_request.id) unlocked in $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -456,13 +519,15 @@ ID: 104000 - 104999
   <rule id="104064" level="8">
     <if_sid>104000</if_sid>
     <field name="github.action">push</field>
-    <description>GitHub: Commit pushed to $(github.repository.full_name) on $(github.ref) by $(github.pusher.name).</description>
+    <description>GitHub: Commit pushed to $(github.repository.name) on $(github.ref) by $(github.pusher.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- push // github.forced: true -->
   <rule id="104065" level="12">
     <if_sid>104064</if_sid>
     <field name="github.forced">true</field>
-    <description>GitHub: Commit force-pushed to $(github.repository.full_name) on $(github.ref) by $(github.pusher.name)</description>
+    <description>GitHub: Commit force-pushed to $(github.repository.name) on $(github.ref) by $(github.pusher.name)</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -471,18 +536,21 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^package.\.*</field>
     <description>GitHub: Packages activity.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- package.published -->
   <rule id="104067" level="8">
     <if_sid>104066</if_sid>
     <field name="github.action">package.published</field>
     <description>GitHub: $(github.package.package_type) package $(github.package.name) version $(github.package.version) published to registry $(github.package.registry.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- package.updated -->
   <rule id="104068" level="8">
     <if_sid>104066</if_sid>
     <field name="github.action">package.updated</field>
     <description>GitHub: $(github.package.package_type) package $(github.package.name) version $(github.package.version) updated.</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -490,7 +558,8 @@ ID: 104000 - 104999
   <rule id="104069" level="8">
     <if_sid>104000</if_sid>
     <field name="github.action">security_and_analysis</field>
-    <description>GitHub: Security settings changed for repository $(github.repository.full_name).</description>
+    <description>GitHub: Security settings changed for repository $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -499,48 +568,56 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^release.\.*</field>
     <description>GitHub: Release event.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- release.created -->
   <rule id="104071" level="8">
     <if_sid>104070</if_sid>
     <field name="github.action">release.created</field>
-    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) created for $(github.repository.full_name).</description>
+    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) created for $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- release.edited -->
   <rule id="104072" level="8">
     <if_sid>104070</if_sid>
     <field name="github.action">release.edited</field>
-    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) for $(github.repository.full_name) edited.</description>
+    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) for $(github.repository.name) edited.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- release.prereleased -->
   <rule id="104073" level="8">
     <if_sid>104070</if_sid>
     <field name="github.action">release.prereleased</field>
-    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) marked as pre-release for $(github.repository.full_name).</description>
+    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) marked as pre-release for $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- release.published -->
   <rule id="104074" level="8">
     <if_sid>104070</if_sid>
     <field name="github.action">release.published</field>
-    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) published for $(github.repository.full_name).</description>
+    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) published for $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- release.released -->
   <rule id="104075" level="8">
     <if_sid>104070</if_sid>
     <field name="github.action">release.released</field>
-    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) released for $(github.repository.full_name).</description>
+    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) released for $(github.repository.name).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- release.unpublished -->
   <rule id="104076" level="8">
     <if_sid>104070</if_sid>
     <field name="github.action">release.unpublished</field>
-    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) for $(github.repository.full_name) unpublished.</description>
+    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) for $(github.repository.name) unpublished.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- release.deleted -->
   <rule id="104077" level="8">
     <if_sid>104070</if_sid>
     <field name="github.action">release.deleted</field>
-    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) for $(github.repository.full_name) deleted.</description>
+    <description>GitHub: Release $(github.release.name) - $(github.release.tag_name) for $(github.repository.name) deleted.</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -549,42 +626,49 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^repository.\.*</field>
     <description>GitHub: Repository activity.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.created -->
   <rule id="104079" level="5">
     <if_sid>104078</if_sid>
     <field name="github.action">repository.created</field>
     <description>GitHub: Repository $(github.repository.name) created by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.created // github.repository.visibility : public -->
   <rule id="104080" level="12">
     <if_sid>104079</if_sid>
     <field name="github.repository.visibility">public</field>
     <description>GitHub: Public repository $(github.repository.name) created by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.created // github.repository.visibility : private -->
   <rule id="104081" level="8">
     <if_sid>104079</if_sid>
     <field name="github.repository.visibility">private</field>
     <description>GitHub: Private repository $(github.repository.name) created by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.edited -->
   <rule id="104082" level="8">
     <if_sid>104078</if_sid>
     <field name="github.action">repository.edited</field>
     <description>GitHub: Repository $(github.repository.name) edited by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.renamed -->
   <rule id="104083" level="8">
     <if_sid>104078</if_sid>
     <field name="github.action">repository.renamed</field>
     <description>GitHub: Repository $(github.changes.repository.name.from) renamed to $(github.repository.name) by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.transferred -->
   <rule id="104084" level="5">
     <if_sid>104078</if_sid>
     <field name="github.action">repository.transferred</field>
     <description>GitHub: Repository $(github.repository.name) transferred.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.transferred // github.changes.owner.from.user exists -->
   <rule id="104085" level="8">
@@ -592,6 +676,7 @@ ID: 104000 - 104999
     <field name="github.action">repository.transferred</field>
     <field name="github.changes.owner.from.user.login">^\.*$</field>
     <description>GitHub: Repository $(github.repository.name) transferred from user $(github.changes.owner.from.user.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.transferred // github.changes.owner.from.organization exists -->
   <rule id="104086" level="8">
@@ -599,36 +684,42 @@ ID: 104000 - 104999
     <field name="github.action">repository.transferred</field>
     <field name="github.changes.owner.from.organization.login">^\.*$</field>
     <description>GitHub: Repository $(github.repository.name) transferred from organization $(github.changes.owner.from.organization.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.deleted -->
   <rule id="104087" level="12">
     <if_sid>104078</if_sid>
     <field name="github.action">repository.deleted</field>
     <description>GitHub: Repository $(github.repository.name) deleted by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.archived -->
   <rule id="104088" level="8">
     <if_sid>104078</if_sid>
     <field name="github.action">repository.archived</field>
     <description>GitHub: Repository $(github.repository.name) archived by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.unarchived -->
   <rule id="104089" level="8">
     <if_sid>104078</if_sid>
     <field name="github.action">repository.unarchived</field>
     <description>GitHub: Repository $(github.repository.name) unarchived by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.publicized -->
   <rule id="104090" level="12">
     <if_sid>104078</if_sid>
     <field name="github.action">repository.publicized</field>
     <description>GitHub: Repository $(github.repository.name) publicized by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- repository.privatized -->
   <rule id="104091" level="12">
     <if_sid>104078</if_sid>
     <field name="github.action">repository.privatized</field>
     <description>GitHub: Repository $(github.repository.name) privatized by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -637,36 +728,42 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^team.\.*</field>
     <description>GitHub: Team activity.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- team.created -->
   <rule id="104093" level="8">
     <if_sid>104092</if_sid>
     <field name="github.action">team.created</field>
     <description>GitHub: Team $(github.team.name) created by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- team.edited -->
   <rule id="104094" level="8">
     <if_sid>104092</if_sid>
     <field name="github.action">team.edited</field>
     <description>GitHub: Team $(github.team.name) settings edited by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- team.deleted -->
   <rule id="104095" level="12">
     <if_sid>104092</if_sid>
     <field name="github.action">team.deleted</field>
     <description>GitHub: Team $(github.team.name) deleted by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- team.added_to_repository -->
   <rule id="104096" level="8">
     <if_sid>104092</if_sid>
     <field name="github.action">team.added_to_repository</field>
-    <description>GitHub: Team $(github.team.name) added to repository $(github.repository.full_name) by $(github.sender.login).</description>
+    <description>GitHub: Team $(github.team.name) added to repository $(github.repository.name) by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- team.removed_from_repository -->
   <rule id="104097" level="8">
     <if_sid>104092</if_sid>
     <field name="github.action">team.removed_from_repository</field>
-    <description>GitHub: Team $(github.team.name) removed from repository $(github.repository.full_name) by $(github.sender.login).</description>
+    <description>GitHub: Team $(github.team.name) removed from repository $(github.repository.name) by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -675,6 +772,7 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">workflow_dispatch</field>
     <description>GitHub: Workflow $(github.workflow) manually started on $(github.repository.name) at $(github.ref) by $(github.sender.login).</description>
+    <options>no_full_log</options>
   </rule>
 
   <!-- ############################################################ -->
@@ -683,66 +781,77 @@ ID: 104000 - 104999
     <if_sid>104000</if_sid>
     <field name="github.action">^workflow_job.\.*</field>
     <description>GitHub: Workflow job event.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- workflow_job.in_progress -->
   <rule id="104100" level="6">
     <if_sid>104099</if_sid>
     <field name="github.action">workflow_job.in_progress</field>
-    <description>GitHub: Workflow job $(github.workflow_job.name) started on $(github.repository.full_name) - branch $(github.workflow_job.head_branch).</description>
+    <description>GitHub: Workflow job $(github.workflow_job.name) started on $(github.repository.name) - branch $(github.workflow_job.head_branch).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- workflow_job.completed -->
   <rule id="104101" level="6">
     <if_sid>104099</if_sid>
     <field name="github.action">workflow_job.completed</field>
-    <description>GitHub: Workflow job $(github.workflow_job.name) on $(github.repository.full_name) - branch $(github.workflow_job.head_branch) completed.</description>
+    <description>GitHub: Workflow job $(github.workflow_job.name) on $(github.repository.name) - branch $(github.workflow_job.head_branch) completed.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- workflow_job.completed // github.workflow_job.conclusion : success -->
   <rule id="104102" level="8">
     <if_sid>104099</if_sid>
     <field name="github.workflow_job.conclusion">success</field>
-    <description>GitHub: Workflow job $(github.workflow_job.name) on $(github.repository.full_name) - branch $(github.workflow_job.head_branch) completed successfully.</description>
+    <description>GitHub: Workflow job $(github.workflow_job.name) on $(github.repository.name) - branch $(github.workflow_job.head_branch) completed successfully.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- workflow_job.completed // github.workflow_job.conclusion : success // job name : scan-secrets OR semgrep-scan -->
   <rule id="104103" level="8">
     <if_sid>104099</if_sid>
     <field name="github.workflow_job.name">scan-secrets|semgrep-scan</field>
-    <description>GitHub: Security scan $(github.workflow_job.name) passed on $(github.repository.full_name) - branch $(github.workflow_job.head_branch).</description>
+    <description>GitHub: Security scan $(github.workflow_job.name) passed on $(github.repository.name) - branch $(github.workflow_job.head_branch).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- workflow_job.completed // github.workflow_job.conclusion : failure -->
   <rule id="104104" level="8">
     <if_sid>104099</if_sid>
     <field name="github.workflow_job.conclusion">failure</field>
-    <description>GitHub: Workflow job $(github.workflow_job.name) on $(github.repository.full_name) - branch $(github.workflow_job.head_branch) failed.</description>
+    <description>GitHub: Workflow job $(github.workflow_job.name) on $(github.repository.name) - branch $(github.workflow_job.head_branch) failed.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- workflow_job.completed // github.workflow_job.conclusion : failure // job name : scan-secrets OR semgrep-scan -->
   <rule id="104105" level="12">
     <if_sid>104099</if_sid>
     <field name="github.workflow_job.name">scan-secrets|semgrep-scan</field>
-    <description>GitHub: Security scan $(github.workflow_job.name) failed on $(github.repository.full_name) - branch $(github.workflow_job.head_branch).</description>
+    <description>GitHub: Security scan $(github.workflow_job.name) failed on $(github.repository.name) - branch $(github.workflow_job.head_branch).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- workflow_job.completed // github.workflow_job.conclusion : skipped -->
   <rule id="104106" level="8">
     <if_sid>104099</if_sid>
     <field name="github.workflow_job.conclusion">skipped</field>
-    <description>GitHub: Workflow job $(github.workflow_job.name) on $(github.repository.full_name) - branch $(github.workflow_job.head_branch) skipped.</description>
+    <description>GitHub: Workflow job $(github.workflow_job.name) on $(github.repository.name) - branch $(github.workflow_job.head_branch) skipped.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- workflow_job.completed // github.workflow_job.conclusion : skipped // job name : scan-secrets OR semgrep-scan -->
   <rule id="104107" level="12">
     <if_sid>104099</if_sid>
     <field name="github.workflow_job.name">scan-secrets|semgrep-scan</field>
-    <description>GitHub: Security scan $(github.workflow_job.name) skipped on $(github.repository.full_name) - branch $(github.workflow_job.head_branch).</description>
+    <description>GitHub: Security scan $(github.workflow_job.name) skipped on $(github.repository.name) - branch $(github.workflow_job.head_branch).</description>
+    <options>no_full_log</options>
   </rule>
   <!-- workflow_job.completed // github.workflow_job.conclusion : cancelled -->
   <rule id="104108" level="8">
     <if_sid>104099</if_sid>
     <field name="github.workflow_job.conclusion">cancelled</field>
-    <description>GitHub: Workflow job $(github.workflow_job.name) on $(github.repository.full_name) - branch $(github.workflow_job.head_branch) cancelled.</description>
+    <description>GitHub: Workflow job $(github.workflow_job.name) on $(github.repository.name) - branch $(github.workflow_job.head_branch) cancelled.</description>
+    <options>no_full_log</options>
   </rule>
   <!-- workflow_job.completed // github.workflow_job.conclusion : cancelled // job name : scan-secrets OR semgrep-scan -->
   <rule id="104109" level="12">
     <if_sid>104099</if_sid>
     <field name="github.workflow_job.name">scan-secrets|semgrep-scan</field>
-    <description>GitHub: Security scan $(github.workflow_job.name) cancelled on $(github.repository.full_name) - branch $(github.workflow_job.head_branch).</description>
+    <description>GitHub: Security scan $(github.workflow_job.name) cancelled on $(github.repository.name) - branch $(github.workflow_job.head_branch).</description>
+    <options>no_full_log</options>
   </rule>
 
 </group>

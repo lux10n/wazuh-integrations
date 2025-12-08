@@ -29,7 +29,7 @@ echo "$CLEAN_PAYLOAD" \
           ($raw
             + { action: final_action }
             + { actor: ($raw.sender.login // null) }
-            + { repo: ($raw.repository.full_name // null) }
+            + { repo: ($raw.repository.name // null) }
             + { org: ($raw.organization.login // null) }
           )
       }
