@@ -28,9 +28,9 @@ echo "$CLEAN_PAYLOAD" \
         github:
           ($raw
             + { action: final_action }
-            + { actor: ($raw.sender.login // null) }
-            + { repo: ($raw.repository.name // null) }
-            + { org: ($raw.organization.login // null) }
+            + { actor: ($raw.sender.login // "") }
+            + { repo: ($raw.repository.name // "") }
+            + { org: ($raw.organization.login // "") }
           )
       }
     ' > "$TMP_FILE"
