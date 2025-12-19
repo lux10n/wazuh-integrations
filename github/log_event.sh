@@ -16,7 +16,6 @@ TMP_FILE="$(mktemp)"
 
 printf '%s' "$PAYLOAD" \
 | jq -c --arg event "$EVENT_TYPE" '
-  # GitHub sometimes wraps everything in { payload: "...json..." }
   (.payload // .) as $raw
 
   | def final_action:
@@ -27,7 +26,7 @@ printf '%s' "$PAYLOAD" \
 
   {
     integration: "github",
-    github:
+    github: (
       {
         action: final_action,
         actor: ($raw.sender.login // ""),
@@ -35,7 +34,6 @@ printf '%s' "$PAYLOAD" \
         org: ($raw.organization.login // "")
       }
 
-      # Optional fields (only created if they exist)
       + (if $raw.forced? then { forced: $raw.forced } else {} end)
       + (if $raw.ref? then { ref: $raw.ref } else {} end)
       + (if $raw.ref_type? then { ref_type: $raw.ref_type } else {} end)
@@ -90,9 +88,9 @@ printf '%s' "$PAYLOAD" \
             login: $raw.organization.login
           }
         } else {} end)
+    )
   }
 ' > "$TMP_FILE"
 
-# Atomic append
 cat "$TMP_FILE" >> "$LOG_OUTPUT_FILE"
 rm -f "$TMP_FILE"
