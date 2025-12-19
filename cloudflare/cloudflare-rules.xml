@@ -22,7 +22,7 @@
     </rule>
     
     <!-- Operation failed record in audit logs-->
-    <rule id="101002" level="16">
+    <rule id="101002" level="12">
       <if_sid>101001</if_sid>
       <field name="cloudflare.action.result">failure</field>
       <description>Cloudflare: Failed operation - $(cloudflare.action.description).</description>
@@ -35,7 +35,7 @@
     <rule id="101501" level="1">
       <if_sid>101000</if_sid>
       <field name="cloudflare.zoneTag" type="pcre2">[0-9a-fA-F]+</field>
-      <description>Cloudflare: Firewall cloudflare.</description>
+      <description>Cloudflare: Firewall event.</description>
       <group>firewall,waf,pci_dss_10.6.1,</group>
     </rule>
 
