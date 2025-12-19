@@ -114,7 +114,16 @@ As root :
 
 ### HTTPS Configuration
 
-Start webhook with the following arguments : 
+1. From your CA, generate the following : 
+    - a server key, 
+    - a SSL certificate. The certificate file should be a concatenation of your server's certificate followed by the CA's certificate. 
+
+2. Start webhook with the following arguments in your service file:
+
+    ```ini
+    ExecStart=/usr/bin/webhook -hooks /path/to/wazuh-integrations/github/hooks.json -secure -cert /path/to/cert.pem -key /path/to/key.pem -verbose 
+    ```
+
 
 ### IP Whitelist ranges
 
