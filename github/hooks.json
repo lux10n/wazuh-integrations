@@ -18,7 +18,7 @@
         "source": "entire-payload"
       }
     ],
-    "include-command-output-in-response": true,
+    "include-command-output-in-response": false,
     "trigger-rule": {
       "and": [
         {
