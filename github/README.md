@@ -134,3 +134,30 @@ GitHub's IP ranges for webhooks are, as of December 2025 :
 - `143.55.64.0/20`
 - `2a0a:a440::/29`
 - `2606:50c0::/3`
+
+
+## Logrotate configuration
+
+As root :
+
+1. Install logrotate
+
+```apt install logrotate```
+
+2. If a file containing unified configuration already exists, just add the `/path/to/wazuh-integrations/github/logs/github.log` to the list of files to be rotated.
+
+If not, Create a file named `/etc/logrotate.d/github`. Add the following :
+
+```
+/path/to/wazuh-integrations/github/logs/github.log {
+    su root root
+    size 10M
+    rotate 3
+    compress
+    missingok
+    notifempty
+    copytruncate
+}
+```
+2. Check using `logrotate -d /etc/logrotate.d/github`
+3. Apply configuration using `logrotate -f /etc/logrotate.d/github`
