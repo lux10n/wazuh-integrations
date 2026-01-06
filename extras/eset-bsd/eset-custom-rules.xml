@@ -43,26 +43,26 @@
     <if_sid>102007</if_sid>
     <match>Login attempt</match>
     <field name="result">Success</field>
-    <description>ESET: User $(user) logged in successfully.</description>
+    <description>ESET: User $(dstuser) logged in successfully.</description>
     <group>audit,authentication_successful,</group>
   </rule>
   <rule id="102009" level="5">
     <if_sid>102007</if_sid>
     <match>Logout</match>
     <field name="result">Success</field>
-    <description>ESET: User $(user) logged out successfully.</description>
+    <description>ESET: User $(dstuser) logged out successfully.</description>
     <group>audit,</group>
   </rule>
   <rule id="102010" level="8">
     <if_sid>102001</if_sid>
     <match>Grant permission sets</match>
-    <description>ESET: Permission set granted by $(user).</description>
+    <description>ESET: Permission set granted by $(dstuser).</description>
     <group>audit,</group>
   </rule>
   <rule id="102011" level="8">
     <if_sid>102001</if_sid>
     <match>Revoke permission sets</match>
-    <description>ESET: Permission set revoked by $(user).</description>
+    <description>ESET: Permission set revoked by $(dstuser).</description>
     <group>audit,</group>
   </rule>
 

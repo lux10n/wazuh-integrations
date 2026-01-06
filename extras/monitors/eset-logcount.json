@@ -1,0 +1,133 @@
+{
+   "name": "ESET - Number of logs",
+   "type": "monitor",
+   "monitor_type": "query_level_monitor",
+   "enabled": true,
+   "schedule": {
+      "period": {
+         "unit": "MINUTES",
+         "interval": 30
+      }
+   },
+   "inputs": [
+      {
+         "search": {
+            "indices": [
+               "wazuh-alerts-*"
+            ],
+            "query": {
+               "size": 0,
+               "query": {
+                  "bool": {
+                     "filter": [
+                        {
+                           "bool": {
+                              "should": [
+                                 {
+                                    "match": {
+                                       "predecoder.program_name": {
+                                          "query": "ERAServer",
+                                          "operator": "OR",
+                                          "prefix_length": 0,
+                                          "max_expansions": 50,
+                                          "fuzzy_transpositions": true,
+                                          "lenient": false,
+                                          "zero_terms_query": "NONE",
+                                          "auto_generate_synonyms_phrase_query": true,
+                                          "boost": 1
+                                       }
+                                    }
+                                 }
+                              ],
+                              "adjust_pure_negative": true,
+                              "minimum_should_match": "1",
+                              "boost": 1
+                           }
+                        },
+                        {
+                           "range": {
+                              "timestamp": {
+                                 "from": "now-30m",
+                                 "to": null,
+                                 "include_lower": true,
+                                 "include_upper": true,
+                                 "boost": 1
+                              }
+                           }
+                        }
+                     ],
+                     "adjust_pure_negative": true,
+                     "boost": 1
+                  }
+               }
+            }
+         }
+      }
+   ],
+   "triggers": [
+      {
+         "query_level_trigger": {
+            "id": "pkiyNZoBNoFh-r2aaPvV",
+            "name": "ESET stopped sending logs",
+            "severity": "1",
+            "condition": {
+               "script": {
+                  "source": "ctx.results[0].hits.total.value == 0",
+                  "lang": "painless"
+               }
+            },
+            "actions": [
+               {
+                  "id": "notification860000",
+                  "name": "Notify Security",
+                  "destination_id": "8caKxpkBmA1XANLMzmEV",
+                  "message_template": {
+                     "source": "{{ctx.trigger.name}} in the last {{ctx.monitor.schedule.period.interval}} {{ctx.monitor.schedule.period.unit}}. Please log in and investigate the issue.\n  - Alert Severity Level : P{{ctx.trigger.severity}}\n  - Alert Timeframe : {{ctx.periodStart}} UTC -> {{ctx.periodEnd}} UTC",
+                     "lang": "mustache"
+                  },
+                  "throttle_enabled": false,
+                  "subject_template": {
+                     "source": "[Action Required] An application stopped sending logs",
+                     "lang": "mustache"
+                  }
+               }
+            ]
+         }
+      }
+   ],
+   "ui_metadata": {
+      "schedule": {
+         "timezone": null,
+         "frequency": "interval",
+         "period": {
+            "unit": "MINUTES",
+            "interval": 30
+         },
+         "daily": 0,
+         "weekly": {
+            "tue": false,
+            "wed": false,
+            "thur": false,
+            "sat": false,
+            "fri": false,
+            "mon": false,
+            "sun": false
+         },
+         "monthly": {
+            "type": "day",
+            "day": 1
+         },
+         "cronExpression": "0 */1 * * *"
+      },
+      "monitor_type": "query_level_monitor",
+      "search": {
+         "searchType": "query",
+         "timeField": "",
+         "aggregations": [],
+         "groupBy": [],
+         "bucketValue": 1,
+         "bucketUnitOfTime": "h",
+         "filters": []
+      }
+   }
+}
