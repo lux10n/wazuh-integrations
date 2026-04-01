@@ -1,0 +1,158 @@
+<!-- intercom Audit Log -->
+<!-- 105000 - 105999 -->
+<!-- References :
+  https://developers.intercom.com/docs/references/unstable/rest-api/api.intercom.io/admins/listactivitylogs
+  https://www.intercom.com/help/en/articles/12323918-event-types-in-teammate-activity-logs
+-->
+
+<group name="intercom,">
+
+    <!-- intercom cronjob / wodle -->
+    <rule id="105000" level="3">
+        <decoded_as>json</decoded_as>
+        <field name="integration">intercom</field>
+        <description>Intercom: Audit event - $(intercom.activity_type).</description>
+        <group>audit,pci_dss_10.6.1,</group>
+    </rule>
+
+    <!-- Security-relevant admin actions -->
+    <rule id="105001" level="6">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_login_success</field>
+        <description>Intercom: Admin $(intercom.performed_by.email) successfully logged in.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105002" level="6">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_login_failure</field>
+        <description>Intercom: Failed admin login attempt.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105003" level="6">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_logout</field>
+        <description>Intercom: Admin logged out.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105004" level="6">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_password_reset_request</field>
+        <description>Intercom: Admin requested password reset.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105005" level="6">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_password_reset_success</field>
+        <description>Intercom: Admin password reset completed successfully.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105006" level="6">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_two_factor_auth_change</field>
+        <description>Intercom: Admin updated two-factor authentication settings.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105007" level="12">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_unauthorized_sign_in_method</field>
+        <description>Intercom: Unauthorized sign-in method attempt.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105008" level="6">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_permission_change</field>
+        <description>Intercom: User permissions were modified.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105009" level="12">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_impersonation_start</field>
+        <description>Intercom: Admin impersonation session started.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105010" level="12">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_impersonation_end</field>
+        <description>Intercom: Admin impersonation session ended.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105011" level="8">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_deletion</field>
+        <description>Intercom: Admin account deleted.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105012" level="8">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_deprovisioned</field>
+        <description>Intercom: Admin account deprovisioned.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105013" level="6">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_provisioned</field>
+        <description>Intercom: Admin account provisioned.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105014" level="8">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_invite_creation</field>
+        <description>Intercom: Admin invitation created.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105015" level="8">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_invite_deletion</field>
+        <description>Intercom: Admin invitation deleted.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105016" level="6">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">admin_invite_change</field>
+        <description>Intercom: Admin invitation modified.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105017" level="8">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">conversation_part_deletion</field>
+        <description>Intercom: Conversation message deleted.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105018" level="8">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">message_deletion</field>
+        <description>Intercom: Message deleted.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105019" level="8">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">app_data_deletion</field>
+        <description>Intercom: App data deleted.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+
+    <rule id="105020" level="8">
+        <if_sid>105000</if_sid>
+        <field name="intercom.activity_type">bulk_delete</field>
+        <description>Intercom: Bulk delete performed.</description>
+        <group>audit,security,pci_dss_10.6.1,</group>
+    </rule>
+</group>
