@@ -8,8 +8,7 @@ except ImportError:
 
 LOG_OUTFILE = os.path.join(os.path.dirname(__file__), "intercom.log")
 
-# TIME_INTERVAL_SECONDS = 10 * 60  # 10 minutes
-TIME_INTERVAL_SECONDS = 7 * 24 * 60 * 60  # 7 days
+TIME_INTERVAL_SECONDS = 10 * 60  # 10 minutes
 
 try:
     INTERCOM_TOKEN = os.environ.get('INTERCOM_TOKEN')
@@ -45,7 +44,7 @@ def pull_activity_logs(date_after, date_before):
             },
             timeout=10
         )
-        print(f'[i] Remaining requests : {response.headers.get("X-RateLimit-Remaining", "Unknown")}. Limits reset at {datetime.datetime.fromtimestamp(int(response.headers.get("X-RateLimit-Reset", "Unknown")))}')
+        # print(f'[i] Remaining requests : {response.headers.get("X-RateLimit-Remaining", "Unknown")}. Limits reset at {datetime.datetime.fromtimestamp(int(response.headers.get("X-RateLimit-Reset", "Unknown")))}')
         if response.status_code == 429:
             raise Exception(f'Rate limit hit. Limits reset at {datetime.datetime.fromtimestamp(int(response.headers.get("X-RateLimit-Reset", "Unknown")))}')
         if response.status_code != 200:
