@@ -11,8 +11,8 @@ LOG_OUTFILE = os.path.join(os.path.dirname(__file__), "intercom.log")
 TIME_INTERVAL_SECONDS = 10 * 60  # 10 minutes
 
 try:
-    INTERCOM_TOKEN = os.environ.get('INTERCOM_TOKEN')
-    assert type(INTERCOM_TOKEN) is str, "Intercom token not set"
+    INTERCOM_API_TOKEN = os.environ.get('INTERCOM_API_TOKEN')
+    assert type(INTERCOM_API_TOKEN) is str, "Intercom token not set"
 except Exception as thrown_exception:
     raise thrown_exception
 
@@ -37,7 +37,7 @@ def pull_activity_logs(date_after, date_before):
         response = requests.get(
             url=next_url,
             headers={
-                'Authorization': f'Bearer {INTERCOM_TOKEN}',
+                'Authorization': f'Bearer {INTERCOM_API_TOKEN}',
                 'Accept': 'application/json',
                 'Intercom-Version': '2.15',
                 'User-Agent': 'Wazuh-Agent'
