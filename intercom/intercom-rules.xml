@@ -20,21 +20,21 @@
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_login_success</field>
         <description>Intercom: Teammate $(intercom.performed_by.email) successfully logged in.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,authentication_success,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105002" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_login_failure</field>
         <description>Intercom: Failed login attempt by teammate $(intercom.performed_by.email).</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,authentication_failed,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105003" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_logout</field>
         <description>Intercom: Teammate $(intercom.performed_by.email) logged out.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <!-- Password and 2FA changes -->
@@ -42,21 +42,21 @@
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_password_reset_request</field>
         <description>Intercom: Teammate requested a password reset.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105005" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_password_reset_success</field>
         <description>Intercom: Teammate successfully completed a password reset.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105006" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_two_factor_auth_change</field>
         <description>Intercom: Teammate updated two-factor authentication settings.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <!-- Unauthorized or risky actions -->
@@ -64,28 +64,28 @@
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_unauthorized_sign_in_method</field>
         <description>Intercom: Attempted sign-in using an unauthorized method.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,authentication_failure,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105008" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_permission_change</field>
         <description>Intercom: Permissions modified for teammate $(intercom.metadata.admin.first_name) $(intercom.metadata.admin.last_name).</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105009" level="12">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_impersonation_start</field>
         <description>Intercom: Teammate started an impersonation session.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105010" level="12">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_impersonation_end</field>
         <description>Intercom: Impersonation session ended.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <!-- Account lifecycle -->
@@ -93,21 +93,21 @@
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_deletion</field>
         <description>Intercom: Teammate account deleted.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105012" level="8">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_deprovisioned</field>
         <description>Intercom: Teammate account deprovisioned.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105013" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_provisioned</field>
         <description>Intercom: Teammate account provisioned.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <!-- Invitations -->
@@ -115,21 +115,21 @@
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_invite_creation</field>
         <description>Intercom: Teammate invitation created.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105015" level="8">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_invite_deletion</field>
         <description>Intercom: Teammate invitation deleted.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105016" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">admin_invite_change</field>
         <description>Intercom: Teammate invitation modified.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <!-- Conversation / message / app data deletion -->
@@ -137,28 +137,28 @@
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">conversation_part_deletion</field>
         <description>Intercom: Conversation message deleted.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105018" level="8">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">message_deletion</field>
         <description>Intercom: Message deleted from conversation.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105019" level="8">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">app_data_deletion</field>
         <description>Intercom: Application data removed.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105020" level="8">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">bulk_delete</field>
         <description>Intercom: Bulk deletion performed.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <!-- Article deletion -->
@@ -166,14 +166,14 @@
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">article_content_deletion</field>
         <description>Intercom: Article content deleted.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105022" level="8">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">article_deletion</field>
         <description>Intercom: Article removed from knowledge base.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <!-- Role and seat changes -->
@@ -181,78 +181,78 @@
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">role_creation</field>
         <description>Intercom: Role created for teammates.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105024" level="8">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">role_deletion</field>
         <description>Intercom: Role deleted from system.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105025" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">role_change</field>
         <description>Intercom: Teammate role updated (permissions may have changed).</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105026" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">seat_change</field>
         <description>Intercom: Seat assignment changed for a teammate.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105027" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">seat_revoke</field>
         <description>Intercom: Seat revoked from a teammate.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <!-- Security and app settings -->
-    <rule id="105028" level="6">
+    <rule id="105028" level="8">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">security_settings_change</field>
         <description>Intercom: Security-related settings modified.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105029" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">app_authentication_method_change</field>
         <description>Intercom: App authentication method changed.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105030" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">app_identity_verification_change</field>
         <description>Intercom: App identity verification method updated.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
-    <rule id="105031" level="6">
+    <rule id="105031" level="12">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">app_google_sso_domain_change</field>
         <description>Intercom: Google SSO domain updated for app.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105032" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">app_webhook_creation</field>
         <description>Intercom: App webhook created.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
     <rule id="105033" level="6">
         <if_sid>105000</if_sid>
         <field name="intercom.activity_type">app_webhook_deletion</field>
         <description>Intercom: App webhook deleted.</description>
-        <group>audit,security,pci_dss_10.6.1,</group>
+        <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
 </group>
