@@ -7,7 +7,6 @@
 
 <group name="jira,">
 
-    <!-- ================= BASE RULE ================= -->
     <rule id="106000" level="0">
         <decoded_as>json</decoded_as>
         <field name="integration">^jira$</field>
