@@ -39,7 +39,6 @@ As root :
   <localfile>
     <location>/path/to/integration/intercom.log</location>
     <log_format>json</log_format>
-    <label key="@source">intercom</label>
   </localfile>
 ```
 

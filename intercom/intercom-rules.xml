@@ -1,13 +1,13 @@
-<!-- intercom Audit Log -->
+<!-- Intercom Audit Logs -->
 <!-- 105000 - 105999 -->
 <!-- References:
-     https://developers.intercom.com/docs/references/unstable/rest-api/api.intercom.io/admins/listactivitylogs
-     https://www.intercom.com/help/en/articles/12323918-event-types-in-teammate-activity-logs
+    https://developers.intercom.com/docs/references/unstable/rest-api/api.intercom.io/admins/listactivitylogs
+    https://www.intercom.com/help/en/articles/12323918-event-types-in-teammate-activity-logs
 -->
 
 <group name="intercom,">
 
-    <!-- intercom cronjob / wodle -->
+    <!-- Intercom cronjob / wodle -->
     <rule id="105000" level="0">
         <decoded_as>json</decoded_as>
         <field name="integration">intercom</field>

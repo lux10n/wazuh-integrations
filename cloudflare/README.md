@@ -40,7 +40,6 @@ As root :
   <localfile>
     <location>/path/to/integration/cloudflare.log</location>
     <log_format>json</log_format>
-    <label key="@source">Cloudflare</label>
   </localfile>
 ```
 
