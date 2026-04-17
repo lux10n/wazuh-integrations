@@ -1,0 +1,167 @@
+<!-- Jira Cloud Audit Logs -->
+<!-- 106000 - 106999 -->
+<!-- References:
+    https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-audit-records/#api-rest-api-3-auditing-record-get
+    https://support.atlassian.com/jira-cloud-administration/docs/audit-activities-in-jira-applications/
+-->
+<!-- Jira Cloud Audit Logs -->
+<!-- 106000 - 106999 -->
+
+<!-- =============================================================================
+     Jira Cloud Audit Logs - 25 Specific Rules (106000 - 106099)
+     Based on your 25 distinct samples
+============================================================================= -->
+
+<group name="jira,">
+
+    <!-- ================= BASE RULE ================= -->
+    <rule id="106000" level="0">
+        <decoded_as>json</decoded_as>
+        <field name="integration">^jira$</field>
+        <description>Jira Audit: $(jira.summary)</description>
+        <group>audit,jira,</group>
+        <options>no_full_log</options>
+    </rule>
+
+    <rule id="106001" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Custom field created$</field>
+        <description>Jira: Custom field created - $(jira.objectItem.name)</description>
+        <group>jira,field,</group>
+    </rule>
+
+    <rule id="106002" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Custom field updated$</field>
+        <description>Jira: Custom field updated - $(jira.objectItem.name)</description>
+        <group>jira,field,</group>
+    </rule>
+
+    <rule id="106003" level="6">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Field added to Screen$</field>
+        <description>Jira: Field added to screen - $(jira.objectItem.name)</description>
+        <group>jira,screen,</group>
+    </rule>
+
+    <rule id="106004" level="6">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Field configuration item updated$</field>
+        <description>Jira: Field configuration item updated - $(jira.objectItem.name)</description>
+        <group>jira,field,</group>
+    </rule>
+
+    <rule id="106005" level="6">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Field configuration updated$</field>
+        <description>Jira: Field configuration updated - $(jira.objectItem.name)</description>
+        <group>jira,field,</group>
+    </rule>
+
+    <rule id="106006" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Field context created$</field>
+        <description>Jira: Field context created - $(jira.objectItem.name)</description>
+        <group>jira,field,</group>
+    </rule>
+
+    <rule id="106007" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Field context updated$</field>
+        <description>Jira: Field context updated - $(jira.objectItem.name)</description>
+        <group>jira,field,</group>
+    </rule>
+
+    <rule id="106008" level="6">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Field option created$</field>
+        <description>Jira: Field option created - $(jira.objectItem.name)</description>
+        <group>jira,field,</group>
+    </rule>
+
+    <rule id="106009" level="6">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Field option updated$</field>
+        <description>Jira: Field option updated - $(jira.objectItem.name)</description>
+        <group>jira,field,</group>
+    </rule>
+
+    <rule id="106010" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Issue type created$</field>
+        <description>Jira: Issue type created - $(jira.objectItem.name)</description>
+        <group>jira,issue_type,</group>
+    </rule>
+
+    <rule id="106011" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Issue type scheme updated$</field>
+        <description>Jira: Issue type scheme updated</description>
+        <group>jira,issue_type,</group>
+    </rule>
+
+    <rule id="106012" level="6">
+        <if_sid>106000</if_sid>
+        <field name="jira.category">sprints</field>
+        <description>Jira: $(jira.summary) - $(jira.objectItem.name)</description>
+        <group>jira,sprint,</group>
+    </rule>
+
+
+    <rule id="106013" level="6">
+        <if_sid>106000</if_sid>
+        <field name="jira.category">status</field>
+        <description>Jira: $(jira.summary) - $(jira.objectItem.name)</description>
+        <group>jira,sprint,</group>
+    </rule>
+
+    <rule id="106014" level="8">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^User added to group$</field>
+        <description>Jira: User $(jira.objectItem.name) added to group</description>
+        <group>pci_dss_10.2.5,jira,user_management,</group>
+    </rule>
+
+    <rule id="106015" level="12">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^User created$</field>
+        <description>Jira: User created - $(jira.objectItem.name)</description>
+        <group>pci_dss_10.2.5,jira,user_management,</group>
+    </rule>
+
+    <rule id="106016" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^User updated$</field>
+        <description>Jira: User updated - $(jira.objectItem.name)</description>
+        <group>pci_dss_10.2.5,jira,user_management,</group>
+    </rule>
+
+    <rule id="106017" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Workflow created$</field>
+        <description>Jira: Workflow created - $(jira.objectItem.name)</description>
+        <group>jira,workflow,</group>
+    </rule>
+
+    <rule id="106018" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Workflow deleted$</field>
+        <description>Jira: Workflow deleted - $(jira.objectItem.name)</description>
+        <group>jira,workflow,</group>
+    </rule>
+
+    <rule id="106019" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Workflow scheme updated$</field>
+        <description>Jira: Workflow scheme updated</description>
+        <group>jira,workflow,</group>
+    </rule>
+
+    <rule id="106020" level="7">
+        <if_sid>106000</if_sid>
+        <field name="jira.summary">^Workflow updated$</field>
+        <description>Jira: Workflow updated - $(jira.objectItem.name)</description>
+        <group>jira,workflow,</group>
+    </rule>
+
+</group>
