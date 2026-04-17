@@ -4,13 +4,6 @@
     https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-audit-records/#api-rest-api-3-auditing-record-get
     https://support.atlassian.com/jira-cloud-administration/docs/audit-activities-in-jira-applications/
 -->
-<!-- Jira Cloud Audit Logs -->
-<!-- 106000 - 106999 -->
-
-<!-- =============================================================================
-     Jira Cloud Audit Logs - 25 Specific Rules (106000 - 106099)
-     Based on your 25 distinct samples
-============================================================================= -->
 
 <group name="jira,">
 
