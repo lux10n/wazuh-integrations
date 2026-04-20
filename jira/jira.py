@@ -65,9 +65,9 @@ def pull_activity_logs(date_after, date_before):
         limit = api_response.get('limit', 1000)
 
         EXCLUDED_SUMMARIES = {
-            "Project version created",
-            "Project version released",
-            "Deleted Jira issue"
+        #    "Project version created",
+        #    "Project version released",
+        #    "Deleted Jira issue"
         }
 
         saved_events = 0
