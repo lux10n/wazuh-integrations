@@ -7,7 +7,7 @@
 
 <group name="jira,">
 
-    <rule id="106000" level="0">
+    <rule id="106000" level="3">
         <decoded_as>json</decoded_as>
         <field name="integration">^jira$</field>
         <description>Jira Audit: $(jira.summary)</description>
