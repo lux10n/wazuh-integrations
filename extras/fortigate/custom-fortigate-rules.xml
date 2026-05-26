@@ -42,38 +42,87 @@
 
 <!-- FORTIGATE V7 // NEW -->
 <group name="fortigate,firewall">
-  <!-- Traffic logs -->
+
+  <!-- Full silencing : 
+    - Forward traffic allowed (111145)
+    - Forward traffic statistics (111151)
+    - Local traffic logs (111146)
+    - Web Filter / Allowed site (111286)
+    - IPS pass (110021)
+    - URL Filter explicitly allowed (111263)
+    - Wireless station DNS failed NXDOMAIN (110908)
+  -->
   <rule id="235001" level="0">
     <if_sid>111145</if_sid>
-    <description>FortiGate : Silencing forward traffic logs.</description>
+    <description>FortiGate: Silencing forward traffic logs.</description>
   </rule>
   <rule id="235002" level="0">
     <if_sid>111151</if_sid>
-    <description>FortiGate : Silencing forward traffic statistics logs.</description>
+    <description>FortiGate: Silencing forward traffic statistics logs.</description>
   </rule>
   <rule id="235003" level="0">
     <if_sid>111146</if_sid>
-    <description>FortiGate : Silencing local traffic logs.</description>
+    <description>FortiGate: Silencing local traffic logs.</description>
   </rule>
-
-  <!-- Allowed sites -->
   <rule id="235004" level="0">
     <if_sid>111286</if_sid>
-    <description>FortiGate : Silencing web filter allowed site logs.</description>
+    <description>FortiGate: Silencing web filter allowed site logs.</description>
   </rule>
   <rule id="235005" level="0">
-    <if_sid>111286</if_sid>
-    <description>FortiGate : Silencing IPS passed logs.</description>
+    <if_sid>110021</if_sid>
+    <description>FortiGate: Silencing all IPS passed logs.</description>
   </rule>
   <rule id="235006" level="0">
     <if_sid>111263</if_sid>
-    <description>FortiGate : Silencing URL filter allowed logs.</description>
+    <description>FortiGate: Silencing URL filter allowed logs.</description>
+  </rule>
+  <rule id="235007" level="0">
+    <if_sid>110908</if_sid>
+    <description>FortiGate: Silencing Wireless station DNS failed NXDOMAIN logs.</description>
   </rule>
 
-  <!-- Blocked sites - Exclude : none for now
-  - Google Play 
-  - Icloud
-  - from Google Play drops
-  -->
 
+
+
+  <!-- Specific silencing : 
+    - hostname / dstip
+    - or data.hostname / data.dstip
+  -->
+  <rule id="235008" level="0">
+    <if_sid>111284</if_sid>
+    <field name="hostname">^play\.google\.com$|^mask.*\.icloud\.com$|^edge\.skype\.com$</field>
+    <description>FortiGate: Silencing noise for specific blocked URLs (Google Play, iCloud Mask, Skype).</description>
+  </rule>
+  <rule id="235009" level="0">
+    <if_sid>110022</if_sid>
+    <field name="hostname">\.facebook\.com$|\.tiktokv\.com$|\.instagram\.com$|\.youtube\.com$|\.linkedin\.com$|\.snapchat\.com$|\.googleapis\.com$</field>
+    <description>FortiGate: Silencing IPS Block noise for Social Media and Google APIs.</description>
+  </rule>
+  <rule id="235010" level="0">
+    <if_sid>111289</if_sid>
+    <field name="hostname">\.facebook\.com$|\.tiktokv\.com$|\.instagram\.com$|\.youtube\.com$|\.linkedin\.com$|\.snapchat\.com$|\.googleapis\.com$</field>
+    <description>FortiGate: Silencing URL Visited noise for Social Media and Google APIs.</description>
+  </rule>
+  <rule id="235011" level="0">
+    <if_sid>111129</if_sid>
+    <field name="hostname">\.gstatic\.com$|\.google\.com$|^dns\.google$|\.apple\.com$|^slack\.com$</field>
+    <description>FortiGate: Silencing SSL Connection Blocked noise for Google, Apple, and Slack.</description>
+  </rule>
+  <rule id="235012" level="0">
+    <if_sid>111261</if_sid>
+    <field name="hostname">\.facebook\.com$|\.youtube\.com$|spotify\.com</field>
+    <description>FortiGate: Silencing URL filter explicit blocks for Facebook, YouTube, and Spotify.</description>
+  </rule>
+  <rule id="235013" level="0">
+    <if_sid>111132</if_sid>
+    <field name="hostname">\.icloud\.com$|^cp10\.cloudflare\.com$</field>
+    <description>FortiGate: Silencing SSL Bypass noise for iCloud and Cloudflare.</description>
+  </rule>
+  <!-- TO BE IMPLEMENTED
+  <rule id="235014" level="0">
+    <if_sid>111143</if_sid>
+    <field name="dstip">^8\.8\.8\.8$|^1\.1\.1\.1$</field>
+    <description>FortiGate: Silencing failed connection alerts to public DNS (Google/Cloudflare).</description>
+  </rule>
+  -->
 </group>
