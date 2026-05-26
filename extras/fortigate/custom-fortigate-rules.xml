@@ -1,8 +1,79 @@
 <!-- Modify it at your will. -->
-<!-- “Application Passed” events silenced -->
+
+<!-- FORTIGATE V5 // OLD -->
+<!-- <group name="fortigate,firewall"> -->
+  <!-- “Application Passed” events silenced -->
+  <!-- <rule id="234567" level="0">
+    <if_sid>81633</if_sid>
+    <description>SILENCING Fortigate Base Rule 81633, no Alert will be triggered</description>
+  </rule> -->
+  <!-- “URL Blocked” from filtered URL list -->
+  <!-- <rule id="234568" level="0">
+    <if_sid>81644</if_sid>
+    <field name="msg">URL was blocked because it is in the URL filter list</field>
+      <description>SILENCING Fortigate Base Rule 81644 for URL filter list, no Alert will be triggered</description>
+  </rule> -->
+  <!-- “URL Blocked” from Google Play drops -->
+  <!-- <rule id="234569" level="0">
+    <if_sid>81644</if_sid>
+    <url>https://play.google.com/</url>
+      <description>SILENCING Fortigate Base Rule 81644 for Google Play drops, no Alert will be triggered</description>
+  </rule> -->
+<!-- </group> -->
+
+<!-- 
+  RULES TO SILENCE : 
+
+  111145 - Forward traffic allowed
+  111151 - Forward traffic statistics
+  111146 - Local traffic logs
+
+  111286 - Web Filter / Allowed site
+  110021 - IPS pass
+  111263 - URL Filter explicitly allowed
+
+  111284 - Web Filter / Blocked site
+  111261 - URL Filter explicitly blocked
+
+  111132 - SSL Certificate check failed
+  111129 - SSL Certificate problem
+ -->
+
+
+<!-- FORTIGATE V7 // NEW -->
 <group name="fortigate,firewall">
-  <rule id="234567" level="0">
-      <if_sid>81633</if_sid>
-      <description>SILENCING Fortigate Base Rule 81633, no Alert will be triggered</description>
+  <!-- Traffic logs -->
+  <rule id="235001" level="0">
+    <if_sid>111145</if_sid>
+    <description>FortiGate : Silencing forward traffic logs.</description>
   </rule>
+  <rule id="235002" level="0">
+    <if_sid>111151</if_sid>
+    <description>FortiGate : Silencing forward traffic statistics logs.</description>
+  </rule>
+  <rule id="235003" level="0">
+    <if_sid>111146</if_sid>
+    <description>FortiGate : Silencing local traffic logs.</description>
+  </rule>
+
+  <!-- Allowed sites -->
+  <rule id="235004" level="0">
+    <if_sid>111286</if_sid>
+    <description>FortiGate : Silencing web filter allowed site logs.</description>
+  </rule>
+  <rule id="235005" level="0">
+    <if_sid>111286</if_sid>
+    <description>FortiGate : Silencing IPS passed logs.</description>
+  </rule>
+  <rule id="235006" level="0">
+    <if_sid>111263</if_sid>
+    <description>FortiGate : Silencing URL filter allowed logs.</description>
+  </rule>
+
+  <!-- Blocked sites - Exclude : none for now
+  - Google Play 
+  - Icloud
+  - from Google Play drops
+  -->
+
 </group>
