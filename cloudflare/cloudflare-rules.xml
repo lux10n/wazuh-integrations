@@ -21,7 +21,7 @@
       <group>audit,pci_dss_10.6.1,</group>
     </rule>
     
-    <!-- Operation failed record in audit logs-->
+    <!-- Operation failed record in audit logs -->
     <rule id="101002" level="12">
       <if_sid>101001</if_sid>
       <field name="cloudflare.action.result">failure</field>
@@ -29,13 +29,46 @@
       <group>audit,pci_dss_10.6.1,</group>
     </rule>
 
+    <!-- Operation successful record in audit logs -->
+    <rule id="101003" level="11">
+      <if_sid>101001</if_sid>
+      <field name="cloudflare.action.result">success</field>
+      <description>Cloudflare: Configuration change - $(cloudflare.action.description).</description>
+      <group>audit,pci_dss_10.6.1,,</group>
+    </rule>
+
+    <!-- Regular login success -->
+    <rule id="101004" level="6">
+      <if_sid>101001</if_sid>
+      <field name="cloudflare.action.description">LOGIN</field>
+      <field name="cloudflare.action.result">success</field>
+      <description>Cloudflare: Successful dashboard login by $(cloudflare.actor.email).</description>
+      <group>audit,authentication_success,pci_dss_10.6.1,,</group>
+    </rule>
+
+    <!-- Unusual login success -->
+    <rule id="101005" level="12">
+      <if_sid>101004</if_sid>
+      <time>8pm - 6am</time>
+      <description>Cloudflare: Administrative login detected at unusual work hours by $(cloudflare.actor.email).</description>
+      <group>audit,authentication_success,anomaly,pci_dss_10.6.1,,</group>
+    </rule>
+
+    <rule id="101006" level="12">
+      <if_sid>101004</if_sid>
+      <weekday>weekends</weekday>
+      <description>Cloudflare: Administrative login detected on weekend by $(cloudflare.actor.email).</description>
+      <group>audit,authentication_success,anomaly,pci_dss_10.6.1,,</group>
+    </rule>
+
+
     <!-- Cloudflare Firewall Events : 101501 - 101999 -->
 
     <!-- Default firewall event -->
-    <rule id="101501" level="1">
+    <rule id="101501" level="3">
       <if_sid>101000</if_sid>
       <field name="cloudflare.zoneTag" type="pcre2">[0-9a-fA-F]+</field>
-      <description>Cloudflare: Firewall event.</description>
+      <description>Cloudflare: Firewall event - action: $(cloudflare.firewallAction).</description>
       <group>firewall,waf,pci_dss_10.6.1,</group>
     </rule>
 
@@ -45,6 +78,50 @@
       <field name="cloudflare.firewallAction">block</field>
       <description>Cloudflare: $(cloudflare.clientRequestHTTPMethodName) request dropped.</description>
       <group>firewall,waf,attack,pci_dss_10.6.1,</group>
+    </rule>
+
+    <!-- Authorized ASV Scan -->
+    <rule id="101503" level="7">
+      <if_sid>101501</if_sid>
+      <list field="cloudflare.clientIP" lookup="address_match_key">rules/lists/asv_ips</list>
+      <description>Cloudflare: Authorized ASV Scan traffic observed from $(cloudflare.clientIP).</description>
+      <group>firewall,asv_scan,reconnaissance,pci_dss_10.6.1,</group>
+    </rule>
+    <!-- ASV Correlation : 300+ over an hour from ASV range -->
+    <rule id="101504" level="12" frequency="300" timeframe="3600">
+      <if_sid>101503</if_sid>
+      <field name="cloudflare.firewallAction">block</field>
+      <description>Cloudflare: ASV Scanning sequence verified.</description>
+      <group>firewall,asv_scan,pci_dss_10.6.1,</group>
+    </rule>
+
+
+    <!-- Correlation rules -->
+    
+    <!-- 100+ over 10 minutes from same source IP -->
+    <rule id="101510" level="12" frequency="100" timeframe="600">
+      <if_sid>101502</if_sid>
+      <same_source_ip />
+      <description>Cloudflare: Aggressive single-source attack from $(cloudflare.clientIP).</description>
+      <group>firewall,attack,pci_dss_10.6.1,</group>
+    </rule>
+
+    <!-- 100+ over 10 minutes to same domain - staging -->
+    <rule id="101511" level="11" frequency="100" timeframe="600">
+      <if_sid>101502</if_sid>
+      <field name="cloudflare.clientRequestHTTPHost" type="pcre2">staging</field>
+      <same_field>cloudflare.clientRequestHTTPHost</same_field>
+      <description>Cloudflare: High-frequency flood on $(cloudflare.clientRequestHTTPHost).</description>
+      <group>firewall,attack,pci_dss_10.6.1,</group>
+    </rule>
+
+    <!-- 100+ over 10 minutes to same domain - production -->
+    <rule id="101512" level="14" frequency="100" timeframe="600">
+      <if_sid>101502</if_sid>
+      <field name="cloudflare.clientRequestHTTPHost" type="pcre2">^((?!staging).)*$</field>
+      <same_field>cloudflare.clientRequestHTTPHost</same_field>
+      <description>Cloudflare: High-frequency flood on $(cloudflare.clientRequestHTTPHost).</description>
+      <group>firewall,attack,pci_dss_10.6.1,</group>
     </rule>
 
 </group>
