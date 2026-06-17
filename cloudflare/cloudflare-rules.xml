@@ -89,7 +89,7 @@
     </rule>
     <!-- ASV Correlation : 300+ over an hour from ASV range -->
     <rule id="101504" level="12" frequency="300" timeframe="3600">
-      <if_sid>101503</if_sid>
+      <if_matched_sid>101503</if_matched_sid>
       <field name="cloudflare.firewallAction">block</field>
       <description>Cloudflare: ASV Scanning sequence verified.</description>
       <group>firewall,asv_scan,pci_dss_10.6.1,</group>
@@ -100,7 +100,7 @@
     
     <!-- 100+ over 10 minutes from same source IP -->
     <rule id="101510" level="12" frequency="100" timeframe="600">
-      <if_sid>101502</if_sid>
+      <if_matched_sid>101502</if_matched_sid>
       <same_source_ip />
       <description>Cloudflare: Aggressive single-source attack from $(cloudflare.clientIP).</description>
       <group>firewall,attack,pci_dss_10.6.1,</group>
@@ -108,7 +108,7 @@
 
     <!-- 100+ over 10 minutes to same domain - staging -->
     <rule id="101511" level="11" frequency="100" timeframe="600">
-      <if_sid>101502</if_sid>
+      <if_matched_sid>101502</if_matched_sid>
       <field name="cloudflare.clientRequestHTTPHost" type="pcre2">staging</field>
       <same_field>cloudflare.clientRequestHTTPHost</same_field>
       <description>Cloudflare: High-frequency flood on $(cloudflare.clientRequestHTTPHost).</description>
@@ -117,7 +117,7 @@
 
     <!-- 100+ over 10 minutes to same domain - production -->
     <rule id="101512" level="14" frequency="100" timeframe="600">
-      <if_sid>101502</if_sid>
+      <if_matched_sid>101502</if_matched_sid>
       <field name="cloudflare.clientRequestHTTPHost" type="pcre2">^((?!staging).)*$</field>
       <same_field>cloudflare.clientRequestHTTPHost</same_field>
       <description>Cloudflare: High-frequency flood on $(cloudflare.clientRequestHTTPHost).</description>
